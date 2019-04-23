@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mushroom : Destructable
+public class Mushroom : Destructible
 {
 	internal override void ReceiveShot()
 	{
 		base.ReceiveShot();
 	}
+
 }

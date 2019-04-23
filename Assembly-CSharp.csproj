@@ -59,10 +59,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Destructable.cs" />
+    <Compile Include="Assets\Scripts\Destructible.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Mushroom.cs" />
     <Compile Include="Assets\Scripts\Ship.cs" />
+    <Compile Include="Assets\Shot.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Projects/2019/Unity/Centipede/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

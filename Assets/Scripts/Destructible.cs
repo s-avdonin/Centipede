@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Destructable : MonoBehaviour
+public class Destructible : MonoBehaviour
 {
     virtual internal void ReceiveShot()
     {
