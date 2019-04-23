@@ -43,3 +43,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581feb368bd06b646975784cbe55651f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centipedeSize: 12
+  centipedeSpeed: 2
+  mushroomsQty:
+    fromValue: 100
+    toValue: 150
+  rowsAvailableForMushrooms:
+    fromValue: 4
+    toValue: 3
+  mushroom: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
+    type: 3}
+  lifeText: {fileID: 0}
+  scoreText: {fileID: 0}
+  gameOverText: {fileID: 0}
+  timeToReload: 3
+  sceneEdge: 4.75

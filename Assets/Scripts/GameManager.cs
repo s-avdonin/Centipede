@@ -25,19 +25,19 @@ public class Dispersion
 
 public class GameManager : MonoBehaviour
 {
+	// ReSharper disable once MemberCanBePrivate.Global
 	public static GameManager instance = null;
 	public int centipedeSize;
 	public float centipedeSpeed;
 	public Dispersion mushroomsQty;
 	public Dispersion rowsAvailableForMushrooms;
-	// TODO Create class then uncomment ↓ this
-	// public Mushroom mushroom;
+	public Mushroom mushroom;
 	public Text lifeText;
 	public Text scoreText;
 	public Text gameOverText;
 	public float timeToReload;
+	public float sceneEdge;
 
-	internal static float sceneEdge = 4.75f;
 	private int life = 4;
 	private int score = 0;
 
@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
-		// DontDestroyOnLoad(gameObject);
 		SetMushrooms();
 	}
 
@@ -88,8 +87,7 @@ public class GameManager : MonoBehaviour
 	private void MushroomAtRandomPosition()
 	{
 		int randomIndex = Random.Range(0, mushroomsGrid.Count);
-		// TODO Create class then uncomment ↓ this
-		// Instantiate(mushroom, mushroomsGrid[randomIndex], Quaternion.identity);
+		Instantiate(mushroom, mushroomsGrid[randomIndex], Quaternion.identity);
 		mushroomsGrid.RemoveAt(randomIndex);
 	}
 
