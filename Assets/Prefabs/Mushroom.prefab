@@ -93,6 +93,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7900dde96842424599ddc5668268eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  threeSprites:
+    sprite1: {fileID: 21300000, guid: 2667533643303884fa4e412ff44a7547, type: 3}
+    sprite2: {fileID: 21300000, guid: 0308db291a7af9c409e0378265cc55fc, type: 3}
+    sprite3: {fileID: 21300000, guid: 90daf92755616104a8364d931d19d8ef, type: 3}
 --- !u!58 &2246468260420089652
 CircleCollider2D:
   m_ObjectHideFlags: 0

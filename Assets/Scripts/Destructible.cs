@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Destructible : MonoBehaviour
 {
-    virtual internal void ReceiveShot()
+    internal virtual void ReceiveShot()
     {
         Debug.Log(name + " received shot.");
     }

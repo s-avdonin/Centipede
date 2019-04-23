@@ -8,6 +8,8 @@ public class Shot : MonoBehaviour
 	public float speed;
 	
 	private Rigidbody2D rb;
+	// flag if object has already hit smth. 
+	private bool used = false;
 
 	private void Awake()
 	{
@@ -15,11 +17,15 @@ public class Shot : MonoBehaviour
 		rb.velocity = new Vector2(0f, 1f) * speed;
 	}
 
-	private void OnCollisionEnter2D(Collision2D other)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.GetComponent<Destructible>())
+		if (!used && other.gameObject.GetComponent<Destructible>())
 		{
+			// prevent double hit of close objects
+			used = true;
 			other.gameObject.GetComponent<Destructible>().ReceiveShot();
+			Destroy(gameObject);
 		}
 	}
+
 }
