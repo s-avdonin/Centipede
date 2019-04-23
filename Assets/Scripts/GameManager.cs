@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 	public Text gameOverText;
 	public float timeToReload;
 	public float sceneEdge;
+	public Borders shipMovementBorders;
+	public float shipSpeed; 
 
 	private int life = 4;
 	private int score = 0;

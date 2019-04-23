@@ -2,17 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Borders
+{
+	public float xMin, xMax, yMin, yMax;
+}
+
 public class Ship : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private Rigidbody2D rb;
+	private float speed;
+	private Borders borders;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Awake()
+	{
+		rb = GetComponent<Rigidbody2D>();
+	}
+
+	private void Start()
+	{
+		speed = GameManager.instance.shipSpeed;
+		borders = GameManager.instance.shipMovementBorders;
+	}
+
+	void FixedUpdate()
+	{
+		float moveHorizontal = Input.GetAxis("Horizontal");
+		float moveVertical = Input.GetAxis("Vertical");
+
+		Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+		rb.velocity = movement * speed;
+
+		rb.position = new Vector2
+			(
+			Mathf.Clamp(rb.position.x, borders.xMin, borders.xMax),
+			Mathf.Clamp(rb.position.y, borders.yMin, borders.yMax)
+			);
+	}
 }

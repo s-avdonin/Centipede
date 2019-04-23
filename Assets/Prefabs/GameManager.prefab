@@ -58,3 +58,9 @@ MonoBehaviour:
   gameOverText: {fileID: 0}
   timeToReload: 3
   sceneEdge: 4.75
+  shipMovementBorders:
+    xMin: -4.8
+    xMax: 0
+    yMin: -4.75
+    yMax: 4.75
+  shipSpeed: 0
