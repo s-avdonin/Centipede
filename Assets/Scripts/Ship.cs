@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Borders
-{
-	public float xMin, xMax, yMin, yMax;
-}
-
 public class Ship : MonoBehaviour
 {
 	public Shot shot;
 	
 	private Rigidbody2D rb;
 	private float speed;
-	private Borders borders;
 
 	private void Awake()
 	{
@@ -24,7 +17,6 @@ public class Ship : MonoBehaviour
 	private void Start()
 	{
 		speed = GameManager.instance.shipSpeed;
-		borders = GameManager.instance.shipMovementBorders;
 	}
 
 	private void FixedUpdate()
@@ -37,8 +29,8 @@ public class Ship : MonoBehaviour
 
 		rb.position = new Vector2
 			(
-			Mathf.Clamp(rb.position.x, borders.xMin, borders.xMax),
-			Mathf.Clamp(rb.position.y, borders.yMin, borders.yMax)
+			Mathf.Clamp(rb.position.x, -GameManager.instance.sceneEdge, GameManager.instance.sceneEdge),
+			Mathf.Clamp(rb.position.y, -GameManager.instance.sceneEdge, 0f)
 			);
 	}
 
@@ -48,5 +40,10 @@ public class Ship : MonoBehaviour
 		{
 			Instantiate(shot, rb.position + new Vector2(0f, 0.1f), Quaternion.identity);
 		}
+	}
+
+	private void OnBecameInvisible()
+	{
+		Destroy(gameObject);
 	}
 }

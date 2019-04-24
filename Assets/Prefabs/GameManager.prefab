@@ -53,14 +53,13 @@ MonoBehaviour:
     toValue: 3
   mushroom: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
     type: 3}
+  rowHeight: 0.25
   lifeText: {fileID: 0}
   scoreText: {fileID: 0}
-  gameOverText: {fileID: 0}
+  centerMessageText: {fileID: 0}
   timeToReload: 3
   sceneEdge: 4.75
-  shipMovementBorders:
-    xMin: -4.8
-    xMax: 0
-    yMin: -4.75
-    yMax: 4.75
-  shipSpeed: 0
+  shipSpeed: 2.5
+  startLife: 0
+  startChainPosition: {x: 0, y: 5.2}
+  centipedeChainLength: 10

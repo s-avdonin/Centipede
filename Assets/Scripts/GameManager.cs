@@ -1,4 +1,3 @@
-﻿
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 
 [System.Serializable]
 public class Dispersion
-{ 
+{
 	public int fromValue, toValue;
 
 	public Dispersion(int min, int max)
@@ -32,16 +31,20 @@ public class GameManager : MonoBehaviour
 	public Dispersion mushroomsQty;
 	public Dispersion rowsAvailableForMushrooms;
 	public Mushroom mushroom;
+	public float rowHeight;
 	public Text lifeText;
 	public Text scoreText;
-	public Text gameOverText;
+	public Text centerMessageText;
 	public float timeToReload;
 	public float sceneEdge;
-	public Borders shipMovementBorders;
 	public float shipSpeed;
-	
+	public int startLife;
+	public Vector2 startChainPosition;
+	public int centipedeChainLength;
 
-	private int life = 4;
+	internal List<Centipede> chain;
+
+	private int life;
 	private int score = 0;
 
 	private List<Vector2> mushroomsGrid;
@@ -56,7 +59,7 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		AddScore(PlayerPrefs.GetInt("Score"));
-		SetLife();
+		ChangeLifeCount(PlayerPrefs.GetInt("Life"));
 	}
 
 	private void Update()
@@ -66,16 +69,6 @@ public class GameManager : MonoBehaviour
 			ReloadLevel();
 		}
 	}
-
-	private void SetLife()
-	{
-		int lifeSaved = PlayerPrefs.GetInt("Life");
-		if (lifeSaved > 0)
-		{
-			ChangeLifeCount(PlayerPrefs.GetInt("Life"));
-		}
-	}
-
 
 	private void SetMushrooms()
 	{
@@ -97,11 +90,11 @@ public class GameManager : MonoBehaviour
 	private List<Vector2> GetGrid()
 	{
 		List<Vector2> coords = new List<Vector2>();
-		for (float i = -sceneEdge; i <= sceneEdge; i += 0.25f)
+		for (float i = -sceneEdge; i <= sceneEdge; i += rowHeight)
 		{
-			for (float j = -sceneEdge + (rowsAvailableForMushrooms.fromValue * 0.25f);
-				j <= sceneEdge - (rowsAvailableForMushrooms.toValue * 0.25f);
-				j += 0.25f)
+			for (float j = -sceneEdge + (rowsAvailableForMushrooms.fromValue * rowHeight);
+				j <= sceneEdge - (rowsAvailableForMushrooms.toValue * rowHeight);
+				j += rowHeight)
 			{
 				coords.Add(new Vector2(i, j));
 			}
@@ -118,25 +111,28 @@ public class GameManager : MonoBehaviour
 
 	public void ChangeLifeCount(bool trueWillAdd)
 	{
-		if (!trueWillAdd) life--;
-		else life++;
+		if (trueWillAdd)
+			life++;
+		else
+		{
+			life--;
+			if (life < 1)
+			{
+				LoseGame();
+			}
+			else
+			{
+				Invoke(nameof(ReloadLevel), timeToReload);
+			}
+		}
 
 		PrintLife();
-
-		if (life < 1)
-		{
-			LoseGame();
-		}
-		else if (!trueWillAdd && life > 0)
-		{
-			Invoke(nameof(ReloadLevel), timeToReload);
-		}
 	}
 
 
 	private void ChangeLifeCount(int setValue)
 	{
-		life = setValue;
+		life = setValue < 1? startLife: setValue;
 		PrintLife();
 	}
 
@@ -154,19 +150,19 @@ public class GameManager : MonoBehaviour
 
 	private void LoseGame()
 	{
-		gameOverText.text = "GAME OVER";
+		centerMessageText.text = "GAME OVER";
+		PlayerPrefs.SetInt("Life", startLife);
 		PlayerPrefs.SetInt("Score", 0);
-		gameOverText.gameObject.SetActive(true);
+		centerMessageText.gameObject.SetActive(true);
 	}
 
 	internal void WinRound()
 	{
-		gameOverText.text = "You've won!\nGet ready for the next round";
-		gameOverText.gameObject.SetActive(true);
+		centerMessageText.text = "You've won!\nGet ready for the next round";
+		centerMessageText.gameObject.SetActive(true);
 		Invoke(nameof(ReloadLevel), 5f);
 	}
-	
-	
+
 
 	private void ReloadLevel()
 	{

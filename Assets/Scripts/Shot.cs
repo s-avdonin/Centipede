@@ -19,13 +19,11 @@ public class Shot : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (!used && other.gameObject.GetComponent<Destructible>())
-		{
-			// prevent double hit of close objects
-			used = true;
-			other.gameObject.GetComponent<Destructible>().ReceiveShot();
-			Destroy(gameObject);
-		}
+		if (used || !other.gameObject.GetComponent<Destructible>()) return;
+		// prevent double hit of close objects 
+		used = true;
+		other.gameObject.GetComponent<Destructible>().ReceiveShot();
+		Destroy(gameObject);
 	}
 
 }

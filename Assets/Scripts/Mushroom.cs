@@ -10,6 +10,7 @@ public class ThreeSprites
 
 public class Mushroom : Destructible
 {
+	public int scoreValue;
 	public ThreeSprites threeSprites;
 
 	private SpriteRenderer sr;
@@ -36,6 +37,7 @@ public class Mushroom : Destructible
 				sr.sprite = threeSprites.sprite3;
 				break;
 			case 4:
+				GameManager.instance.AddScore(scoreValue);
 				Destroy(gameObject);
 				break;
 		}
