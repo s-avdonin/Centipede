@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Centipede.cs" />
     <Compile Include="Assets\Scripts\Destructible.cs" />
+    <Compile Include="Assets\Scripts\FinishLine.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Mushroom.cs" />
     <Compile Include="Assets\Scripts\Ship.cs" />

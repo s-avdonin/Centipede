@@ -18,7 +18,7 @@ public class Centipede : Destructible
 	internal List<Vector2> positionsList;
 
 	private float speed;
-	private Rigidbody2D rb;
+	internal Rigidbody2D rb;
 	private Transform tf;
 	private int leaderIndex = 0;
 	private int myIndexInChain = 0;
@@ -76,7 +76,7 @@ public class Centipede : Destructible
 		{
 			centipede.FindMyIndex();
 		}
-		
+		GameManager.instance.CheckWin(1f);
 		Destroy(gameObject);
 	}
 

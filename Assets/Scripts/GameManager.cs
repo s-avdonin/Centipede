@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 	public Vector2 startChainPosition;
 	public int centipedeChainLength;
 	public Centipede centipede;
+	public Button restartButton;
 
 	internal List<Centipede> chain;
 
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
 			}
 			else
 			{
+				centerMessageText.text = "Try harder!";
 				Invoke(nameof(ReloadLevel), timeToReload);
 			}
 		}
@@ -146,7 +148,7 @@ public class GameManager : MonoBehaviour
 
 	private void ChangeLifeCount(int setValue)
 	{
-		life = setValue < 1 ? startLife : setValue;
+		life = (setValue < 1) ? startLife : setValue;
 		PrintLife();
 	}
 
@@ -162,9 +164,32 @@ public class GameManager : MonoBehaviour
 		lifeText.text = "life: " + addText;
 	}
 
+	internal void CheckWin(float delayTime)
+	{
+		Invoke(nameof(CheckWin), delayTime);
+	}
+
+	private void CheckWin()
+	{
+		if (chain.Count == 0) WinRound();
+	}
+
+	internal void StopAll()
+	{
+		foreach (Centipede centi in chain)
+		{
+			centi.enabled = false;
+			if (centi.isHead)
+			{
+				centi.rb.velocity = Vector2.zero;
+			}
+		}
+	}
+
 	private void LoseGame()
 	{
-		centerMessageText.text = "GAME OVER";
+		centerMessageText.text = "GAME OVER\nYour score is " + score;
+		restartButton.gameObject.SetActive(true);
 		PlayerPrefs.SetInt("Life", startLife);
 		PlayerPrefs.SetInt("Score", 0);
 		centerMessageText.gameObject.SetActive(true);
@@ -178,7 +203,7 @@ public class GameManager : MonoBehaviour
 	}
 
 
-	private void ReloadLevel()
+	public void ReloadLevel()
 	{
 		PlayerPrefs.SetInt("Score", score);
 		PlayerPrefs.SetInt("Life", life);
