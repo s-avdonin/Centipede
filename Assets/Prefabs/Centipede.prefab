@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 15
-  m_Sprite: {fileID: 21300000, guid: 380b266b5f28eeb409548e4bafc3db4d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 318ca9f010f94f546b909bd4916affde, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,9 +94,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3558d17e39c498646b60a05d1595b494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  nextRowHeight: 4.5
   scoreValue: 75
+  headSprite: {fileID: 21300000, guid: 380b266b5f28eeb409548e4bafc3db4d, type: 3}
+  mushroom: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
+    type: 3}
+  distanceBetween: 0.15
+  nextRowHeight: 4.5
 --- !u!50 &804134339393078075
 Rigidbody2D:
   serializedVersion: 4
@@ -116,7 +119,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &804134339393078055
 CircleCollider2D:

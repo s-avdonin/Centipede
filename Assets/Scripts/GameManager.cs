@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 	public int startLife;
 	public Vector2 startChainPosition;
 	public int centipedeChainLength;
+	public Centipede centipede;
 
 	internal List<Centipede> chain;
 
@@ -53,7 +54,9 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
+		chain = new List<Centipede>();
 		SetMushrooms();
+		SetCentipedeChain();
 	}
 
 	private void Start()
@@ -78,6 +81,17 @@ public class GameManager : MonoBehaviour
 		{
 			MushroomAtRandomPosition();
 		}
+	}
+
+	private void SetCentipedeChain()
+	{
+		// chain = new List<Centipede>();
+		for (int i = 0; i < centipedeSize; i++)
+		{
+			chain.Add(Instantiate(centipede, startChainPosition, Quaternion.identity));
+		}
+
+		chain[0].SetHead();
 	}
 
 	private void MushroomAtRandomPosition()
@@ -132,7 +146,7 @@ public class GameManager : MonoBehaviour
 
 	private void ChangeLifeCount(int setValue)
 	{
-		life = setValue < 1? startLife: setValue;
+		life = setValue < 1 ? startLife : setValue;
 		PrintLife();
 	}
 

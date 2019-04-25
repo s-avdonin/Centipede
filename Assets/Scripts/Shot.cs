@@ -26,4 +26,8 @@ public class Shot : MonoBehaviour
 		Destroy(gameObject);
 	}
 
+	private void OnBecameInvisible()
+	{
+		Destroy(gameObject);
+	}
 }

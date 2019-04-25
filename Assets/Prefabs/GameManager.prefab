@@ -43,11 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581feb368bd06b646975784cbe55651f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centipedeSize: 12
+  centipedeSize: 10
   centipedeSpeed: 2
   mushroomsQty:
-    fromValue: 100
-    toValue: 150
+    fromValue: 10
+    toValue: 20
   rowsAvailableForMushrooms:
     fromValue: 4
     toValue: 3
@@ -63,3 +63,5 @@ MonoBehaviour:
   startLife: 0
   startChainPosition: {x: 0, y: 5.2}
   centipedeChainLength: 10
+  centipede: {fileID: 804134339393078052, guid: c65e87be8a979cd4da2989520ccd2b65,
+    type: 3}
