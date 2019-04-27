@@ -62,7 +62,6 @@ public class Centipede : Destructible
 			Centipede next = chain[myIndexInChain + 1];
 			// set next as head
 			next.SetHead();
-			// TODO set next direction, velocity and rotation
 			next.StartMovement(rb.position);
 		}
 
@@ -82,7 +81,6 @@ public class Centipede : Destructible
 
 	internal void StartMovement(Vector2 targetPosition)
 	{
-		// TODO change this: nextRowHeight = chain[0].nextRowHeight;
 		Vector2 nextStep = targetPosition - rb.position;
 		float x = (nextStep.x < 0 ? -1 : 1);
 		direction = new Vector2(x, 0);
@@ -107,6 +105,7 @@ public class Centipede : Destructible
 	{
 		Move();
 		SavePosition();
+		// todo check and change rotation
 	}
 
 	
