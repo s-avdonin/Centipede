@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
+	public float timeToRepeatShot;
 	public Shot shot;
 	
 	private Rigidbody2D rb;
 	private float speed;
+	private float lastShotTime;
 
 	private void Awake()
 	{
@@ -36,8 +38,9 @@ public class Ship : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetButtonDown("Fire1"))
+		if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") && Time.time -lastShotTime > timeToRepeatShot)
 		{
+			lastShotTime = Time.time;
 			Instantiate(shot, rb.position + new Vector2(0f, 0.1f), Quaternion.identity);
 		}
 	}

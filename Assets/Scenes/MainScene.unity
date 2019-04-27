@@ -536,6 +536,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75102bbca732cf94490b55ce3e22b3f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1247448616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1247448617}
+  - component: {fileID: 1247448619}
+  - component: {fileID: 1247448618}
+  m_Layer: 5
+  m_Name: Round
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1247448617
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247448616}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1817522971}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1247448618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247448616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 18
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Round 0
+--- !u!222 &1247448619
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247448616}
+  m_CullTransparentMesh: 0
 --- !u!1 &1638357868
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -10}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1639688895
@@ -672,7 +751,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "life: \u2665 \u2665 \u2665 \u2665"
+  m_Text: "Life: \u2665 \u2665 \u2665 \u2665"
 --- !u!222 &1639688896
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -775,6 +854,7 @@ RectTransform:
   - {fileID: 2021949096}
   - {fileID: 239489312}
   - {fileID: 736026197}
+  - {fileID: 1247448617}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -896,7 +976,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: -10}
+  m_AnchoredPosition: {x: -10, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2021949097
@@ -932,7 +1012,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'score: 0'
+  m_Text: 'Score: 0'
 --- !u!222 &2021949098
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -965,6 +1045,11 @@ PrefabInstance:
       objectReference: {fileID: 2021949097}
     - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
         type: 3}
+      propertyPath: roundText
+      value: 
+      objectReference: {fileID: 1247448618}
+    - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
+        type: 3}
       propertyPath: centerMessageText
       value: 
       objectReference: {fileID: 239489313}
@@ -975,18 +1060,23 @@ PrefabInstance:
       objectReference: {fileID: 736026198}
     - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
         type: 3}
+      propertyPath: centipedeSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
+        type: 3}
       propertyPath: centipedeSpeed
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
         type: 3}
       propertyPath: mushroomsQty.fromValue
-      value: 75
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
         type: 3}
       propertyPath: mushroomsQty.toValue
-      value: 125
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7838774794488203554, guid: d56657422e45d9342bd1a94f4494b6a9,
         type: 3}

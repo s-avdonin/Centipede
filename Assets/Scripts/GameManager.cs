@@ -30,17 +30,12 @@ public class GameManager : MonoBehaviour
 {
 	// public reference to current instance of GameManager 
 	public static GameManager instance = null;
-
 	// length of centipede (number of parts)
 	public int centipedeSize;
-
-	// todo implement levels with growing centipede speed
 	// speed of centipede movement
 	public float centipedeSpeed;
-
 	// range of mushrooms number to instantiate
 	public Dispersion mushroomsQty;
-
 	// range were mushrooms can be instantiated
 	public Dispersion rowsAvailableForMushrooms;
 	// prefab of mushroom
@@ -51,6 +46,8 @@ public class GameManager : MonoBehaviour
 	public Text lifeText;
 	// reference to Text object that indicates points score
 	public Text scoreText;
+	// reference to Text object that indicates current round
+	public Text roundText;
 	// reference to Text object that show messages at the center of the screen
 	public Text centerMessageText;
 	// time before loading next round after win or lose this round
@@ -67,8 +64,6 @@ public class GameManager : MonoBehaviour
 	public Centipede centipede;
 	// reference to restart button
 	public Button restartButton;
-	// todo set background image
-
 	// centipede parts list
 	internal List<Centipede> chain;
 	// current life and score
@@ -76,23 +71,33 @@ public class GameManager : MonoBehaviour
 	private int score = 0;
 	// list of positions where mushrooms can be set
 	private List<Vector2> mushroomsGrid;
+	
+	// todo implement levels with growing centipede speed
+	private int round = 1;
 
 	void Awake()
 	{
 		instance = this;
 		chain = new List<Centipede>();
+		// set current round
+		SetRound();
 		// set mushrooms within the game field
 		SetMushrooms();
 		// create chain of centipede parts
 		SetCentipedeChain();
-	}
-
-	private void Start()
-	{
 		// load and show score from previous round
 		AddScore(PlayerPrefs.GetInt("Score"));
 		// load and show lives count from previous round
 		ChangeLifeCount(PlayerPrefs.GetInt("Life"));
+	}
+
+	private void Update()
+	{
+		// todo Pause on Esc
+	}
+
+	private void Start()
+	{
 	}
 
 	//************ for testing only ***********	
@@ -229,6 +234,17 @@ public class GameManager : MonoBehaviour
 		lifeText.text = "life: " + addText;
 	}
 
+	// set current round and dependent params: speed and length of centipede and mushrooms quantity
+	private void SetRound()
+	{
+		round = PlayerPrefs.GetInt("Round", round);
+		roundText.text = "Round " + round;
+		centipedeSpeed += round * 0.05f;
+		centipedeSize += round / 3;
+		mushroomsQty.fromValue += round * 3;
+		mushroomsQty.toValue += round * 3;
+	}
+
 	// check if won in a few seconds
 	internal void CheckWin(float delayTime)
 	{
@@ -267,6 +283,7 @@ public class GameManager : MonoBehaviour
 		// set default lives and score
 		PlayerPrefs.SetInt("Life", startLife);
 		PlayerPrefs.SetInt("Score", 0);
+		PlayerPrefs.SetInt("Round", 1);
 		// activate text object
 		centerMessageText.gameObject.SetActive(true);
 	}
@@ -278,6 +295,8 @@ public class GameManager : MonoBehaviour
 		centerMessageText.text = "You've won!\nGet ready for the next round";
 		// activate message object
 		centerMessageText.gameObject.SetActive(true);
+		// save round number
+		PlayerPrefs.SetInt("Round", ++round);
 		// new round in a few seconds
 		Invoke(nameof(NewRound), timeToReload);
 	}

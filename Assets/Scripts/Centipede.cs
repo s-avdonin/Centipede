@@ -13,13 +13,14 @@ public class Centipede : Destructible
 	public float nextRowHeight;
 	public ThreeSprites headSprites;
 
-	internal List<Centipede> chain;
+	internal float speed;
 	internal bool isHead;
-	internal Vector2 direction = Vector2.right;
-	internal List<Vector2> positionsList;
-
-	private float speed;
 	internal Rigidbody2D rb;
+	
+	private List<Centipede> chain;
+	private Vector2 direction = Vector2.right;
+	private List<Vector2> positionsList;
+
 	private Transform tf;
 	private int leaderIndex = 0;
 	private int myIndexInChain = 0;
@@ -48,7 +49,7 @@ public class Centipede : Destructible
 		}
 	}
 
-	internal void FindMyIndex()
+	private void FindMyIndex()
 	{
 		myIndexInChain = chain.IndexOf(this);
 		leaderIndex = (myIndexInChain == 0) ? 0 : (myIndexInChain - 1);
@@ -106,7 +107,6 @@ public class Centipede : Destructible
 	{
 		Move();
 		SavePosition();
-		// todo check and change rotation
 	}
 
 	
