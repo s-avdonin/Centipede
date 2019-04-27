@@ -11,6 +11,7 @@ public class Centipede : Destructible
 	public Mushroom mushroom;
 	public float distanceBetween;
 	public float nextRowHeight;
+	public ThreeSprites headSprites;
 
 	internal List<Centipede> chain;
 	internal bool isHead;
@@ -62,7 +63,7 @@ public class Centipede : Destructible
 			Centipede next = chain[myIndexInChain + 1];
 			// set next as head
 			next.SetHead();
-			next.StartMovement(rb.position);
+			next.StartMovementAsHead(rb.position);
 		}
 
 		Instantiate(mushroom, tf.position, Quaternion.identity);
@@ -79,20 +80,20 @@ public class Centipede : Destructible
 		Destroy(gameObject);
 	}
 
-	internal void StartMovement(Vector2 targetPosition)
+	private void StartMovementAsHead(Vector2 targetPosition)
 	{
 		Vector2 nextStep = targetPosition - rb.position;
 		float x = (nextStep.x < 0 ? -1 : 1);
 		direction = new Vector2(x, 0);
 		if (Mathf.Abs(nextStep.x) > Mathf.Abs(nextStep.y))
 		{
-			tf.Rotate(0, 0, direction.x * 90f);
 			rb.velocity = direction * speed;
 		}
 		else
 		{
 			rb.velocity = Vector2.down * speed;
 		}
+		CheckHeadSprite();
 	}
 
 	internal void SetHead()
@@ -146,23 +147,44 @@ public class Centipede : Destructible
 			
 			ToLeftOrToRight();
 		}
+		CheckHeadSprite();
 	}
 	
 	private void ToLeftOrToRight()
 	{
 		direction = -direction;
-		tf.Rotate(0, 0, direction.x * 90f);
 		rb.velocity = direction * speed;
 	}
 
 	private void GoDown()
 	{
-		if (Math.Abs(tf.rotation.z) > float.Epsilon)
-		{
-			tf.Rotate(0, 0, -direction.x * 90f);
-		}
-
 		rb.velocity = Vector2.down * speed;
+	}
+
+	private void CheckHeadSprite()
+	{
+		Sprite correctSprite = sr.sprite;
+		// moving left
+		if (rb.velocity.x < -0.1f)
+		{
+			correctSprite = headSprites.sprite1;
+		}
+		// moving right
+		else if (rb.velocity.x > 0.1f)
+		{
+			correctSprite = headSprites.sprite3;
+		}
+		// moving down
+		else if (rb.velocity.y < -0.1f)
+		{
+			correctSprite = headSprites.sprite2;
+		}
+		
+		// check if set sprite is correct
+		if (sr.sprite != correctSprite)
+		{
+			sr.sprite = correctSprite;
+		}
 	}
 
 	private void OnCollisionEnter2D(Collision2D other)

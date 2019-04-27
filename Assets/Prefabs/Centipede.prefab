@@ -100,6 +100,10 @@ MonoBehaviour:
     type: 3}
   distanceBetween: 0.15
   nextRowHeight: 4.5
+  headSprites:
+    sprite1: {fileID: 21300000, guid: 4ef10e6d90a2fcb4bbd2c54936669848, type: 3}
+    sprite2: {fileID: 21300000, guid: 380b266b5f28eeb409548e4bafc3db4d, type: 3}
+    sprite3: {fileID: 21300000, guid: 18eae4be2f179b441bf8d9981147b3ed, type: 3}
 --- !u!50 &804134339393078075
 Rigidbody2D:
   serializedVersion: 4
