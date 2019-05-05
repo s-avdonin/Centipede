@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// todo add sound manager
 // limit int values in range
 [System.Serializable]
 public class Dispersion
@@ -30,50 +31,77 @@ public class GameManager : MonoBehaviour
 {
 	// public reference to current instance of GameManager 
 	public static GameManager instance = null;
+
 	// length of centipede (number of parts)
 	public int centipedeSize;
+
 	// speed of centipede movement
 	public float centipedeSpeed;
+
 	// range of mushrooms number to instantiate
 	public Dispersion mushroomsQty;
+
 	// range were mushrooms can be instantiated
 	public Dispersion rowsAvailableForMushrooms;
+
+	// players ship object
+	public Ship ship;
+
 	// prefab of mushroom
 	public Mushroom mushroom;
+
 	// the height of each row where mushrooms will be set
 	public float rowHeight;
+
 	// reference to Text object that indicates count of lives
 	public Text lifeText;
+
 	// reference to Text object that indicates points score
 	public Text scoreText;
+
 	// reference to Text object that indicates current round
 	public Text roundText;
+
 	// reference to Text object that show messages at the center of the screen
 	public Text centerMessageText;
+
 	// time before loading next round after win or lose this round
 	public float timeToReload;
+
 	// edges of square borders where all game is going to take place
 	public float sceneEdge;
+
 	// ship movement speed 
 	public float shipSpeed;
+
 	// lives number at the start of new game
 	public int startLife;
+
 	// where from centipedes are going to start movement
 	public Vector2 startChainPosition;
+
 	// prefab of centipede part
 	public Centipede centipede;
+
 	// reference to restart button
 	public Button restartButton;
+
 	// centipede parts list
 	internal List<Centipede> chain;
+
 	// current life and score
 	private int life;
+
 	private int score = 0;
+
 	// list of positions where mushrooms can be set
 	private List<Vector2> mushroomsGrid;
-	
-	// todo implement levels with growing centipede speed
+
+	// round of game	
 	private int round = 1;
+
+	// flag is game paused
+	private bool isPaused = false;
 
 	void Awake()
 	{
@@ -93,21 +121,30 @@ public class GameManager : MonoBehaviour
 
 	private void Update()
 	{
-		// todo Pause on Esc
+		if (Input.GetButtonDown("Cancel"))
+		{
+			SetPause();
+			Debug.Log("Escape");
+		}
 	}
 
-	private void Start()
+	private void SetPause()
 	{
-	}
+		if (!isPaused)
+		{
+			centerMessageText.text = "PAUSED";
+			centerMessageText.gameObject.SetActive(true);
+			Time.timeScale = 0;
 
-	//************ for testing only ***********	
-	// private void Update()
-	// {
-	// 	if (Input.GetButtonDown("Cancel"))
-	// 	{
-	// 		ReloadLevel();
-	// 	}
-	// }
+			isPaused = true;
+		}
+		else
+		{
+			centerMessageText.gameObject.SetActive(false);
+			Time.timeScale = 1;
+			isPaused = false;
+		}
+	}
 
 	// set mushrooms within the game field
 	private void SetMushrooms()
@@ -130,7 +167,7 @@ public class GameManager : MonoBehaviour
 	private int CheckIfOverMaximum(int valueToCheck, int maximum)
 	{
 		// repeat if valueToCheck is still over maximum
-		if (valueToCheck > maximum) 
+		if (valueToCheck > maximum)
 			return CheckIfOverMaximum(valueToCheck / 2, maximum);
 		else return valueToCheck;
 	}
@@ -142,6 +179,7 @@ public class GameManager : MonoBehaviour
 		{
 			chain.Add(Instantiate(centipede, startChainPosition, Quaternion.identity));
 		}
+
 		// make first part a head
 		chain[0].SetHead();
 	}
@@ -180,7 +218,7 @@ public class GameManager : MonoBehaviour
 	public void AddScore(int value)
 	{
 		score += value;
-		scoreText.text = "score: " + score;
+		scoreText.text = "Score: " + score;
 	}
 
 	// increase(true) or decrease(false) number of lives by 1
@@ -197,7 +235,7 @@ public class GameManager : MonoBehaviour
 				LoseGame();
 			}
 			else
-			// restart level if there is more lives
+				// restart level if there is more lives
 			{
 				// motivation :)
 				centerMessageText.text = "Try harder!";
@@ -230,8 +268,9 @@ public class GameManager : MonoBehaviour
 		{
 			addText += "♥ ";
 		}
+
 		// show lives number 
-		lifeText.text = "life: " + addText;
+		lifeText.text = "Life: " + addText;
 	}
 
 	// set current round and dependent params: speed and length of centipede and mushrooms quantity
@@ -271,6 +310,8 @@ public class GameManager : MonoBehaviour
 				centi.rb.velocity = Vector2.zero;
 			}
 		}
+		
+		// ship.enabled = false;
 	}
 
 	// show result and offer to start a new game

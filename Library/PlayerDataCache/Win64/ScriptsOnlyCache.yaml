@@ -71,7 +71,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10546}
     - Class: 114
-      Script: {instanceID: 15266}
+      Script: {instanceID: 10594}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -571,7 +571,7 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: 496fba336710d53fc19a0ee51e9138c8
+      Hash: 2d280562b40cf5fb6019b374ee1a7ec4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -703,7 +703,7 @@ ScriptsOnlyBuild:
     className: AudioTrack
   - hash:
       serializedVersion: 2
-      Hash: 59c1b9160835fc4fd6320a30d99f3a97
+      Hash: c192c927b9c81fda9dd083da398d454c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Ship
@@ -733,7 +733,7 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: 36158eb7c9e2d5e5d8fe3305e65651da
+      Hash: c055e61042f81b4a6c1d5b95caf2d093
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Centipede
@@ -757,17 +757,17 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: c3d3430df9e3ea95e3e3d587961390fb
-    assemblyName: Unity.Timeline.dll
-    namespaceName: UnityEngine.Timeline
-    className: PlayableTrack
-  - hash:
-      serializedVersion: 2
       Hash: 5798b6c82e6de3a6e5ef4e052b030cdd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: FinishLine
+  - hash:
+      serializedVersion: 2
+      Hash: c3d3430df9e3ea95e3e3d587961390fb
+    assemblyName: Unity.Timeline.dll
+    namespaceName: UnityEngine.Timeline
+    className: PlayableTrack
   platform: 19
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: E:/Projects/2019/Unity/Centipede/Builds/Windows/Centipede.exe
+  playerPath: E:/Projects/2019/Unity/Centipede/Builds/Windows/v. 0.8/Centipede.exe

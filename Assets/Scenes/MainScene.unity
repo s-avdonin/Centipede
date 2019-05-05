@@ -1078,6 +1078,11 @@ PrefabInstance:
       propertyPath: mushroomsQty.toValue
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
+        type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 1019769509}
     - target: {fileID: 7838774794488203554, guid: d56657422e45d9342bd1a94f4494b6a9,
         type: 3}
       propertyPath: m_LocalPosition.x
