@@ -17,11 +17,13 @@ public class Ship : MonoBehaviour
 
 	private void Awake()
 	{
+		Debug.Log("Awake called");
 		rb = GetComponent<Rigidbody2D>();
 	}
 
 	private void Start()
 	{
+		Debug.Log("Start called");
 		// reading ship speed from Game Manager
 		speed = GameManager.instance.shipSpeed;
 	}
@@ -49,6 +51,7 @@ public class Ship : MonoBehaviour
 	// shooting
 	private void Update()
 	{
+		Debug.Log("Update called");
 		// reading is fire pressed once or hold on for certain time
 		if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") && Time.time -lastShotTime > timeToRepeatShot)
 		{

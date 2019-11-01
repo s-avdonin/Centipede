@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 // todo add sound manager
 // limit int values in range
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviour
 
 	// list of positions where mushrooms can be set
 	private List<Vector2> mushroomsGrid;
+	public Vector2[,] grid { get; private set; }
 
 	// round of game	
 	private int round = 1;
@@ -107,6 +110,7 @@ public class GameManager : MonoBehaviour
 	{
 		instance = this;
 		chain = new List<Centipede>();
+		GetGrid();
 		// set current round
 		SetRound();
 		// set mushrooms within the game field
@@ -150,7 +154,7 @@ public class GameManager : MonoBehaviour
 	private void SetMushrooms()
 	{
 		// create list of possible positions for mushrooms
-		mushroomsGrid = GetGrid();
+		mushroomsGrid = GetMushroomsGrid();
 		// maximum half of available positions may be occupied
 		mushroomsQty.fromValue = CheckIfOverMaximum(mushroomsQty.fromValue, mushroomsGrid.Count / 2);
 		mushroomsQty.toValue = CheckIfOverMaximum(mushroomsQty.toValue, mushroomsGrid.Count / 2);
@@ -195,8 +199,37 @@ public class GameManager : MonoBehaviour
 		mushroomsGrid.RemoveAt(randomIndex);
 	}
 
+	private void GetGrid()
+	{
+		// count available rows and columns
+		int count = Convert.ToInt32(sceneEdge * 2 / rowHeight) + 3;
+		grid = new Vector2[count, count];
+		float horizontal = -sceneEdge - rowHeight;
+		float vertical = horizontal;
+
+		for (int i = 0; i < count; i++, horizontal += rowHeight)
+		{
+			for (int j = 0; j < count; j++, vertical += rowHeight)
+			{
+				grid[i, j] = new Vector2(horizontal, vertical);
+			}
+
+			vertical = -sceneEdge - rowHeight;
+		}
+
+		/*int row = 0;
+		int column = 0;
+		for (float i = -sceneEdge; i <= sceneEdge; i += rowHeight, row++)
+		{
+			for (float j = -sceneEdge; j <= sceneEdge; j += rowHeight, column++)
+			{
+				grid[row, column] = new Vector2(i, j);
+			}
+		}*/
+	}
+
 	// get list of possible positions
-	private List<Vector2> GetGrid()
+	private List<Vector2> GetMushroomsGrid()
 	{
 		// create temp list
 		List<Vector2> coords = new List<Vector2>();
@@ -310,7 +343,7 @@ public class GameManager : MonoBehaviour
 				centi.rb.velocity = Vector2.zero;
 			}
 		}
-		
+
 		// ship.enabled = false;
 	}
 
