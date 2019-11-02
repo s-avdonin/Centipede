@@ -4,11 +4,7 @@ using UnityEngine;
 
 
 // a class common for objects able to take a shot
-public class Destructible : MonoBehaviour
+public abstract class Destructible : MonoBehaviour
 {
-    internal virtual void ReceiveShot()
-    {
-        // log message
-        Debug.Log(name + " received shot.");
-    }
+    internal abstract void ReceiveShot();
 }

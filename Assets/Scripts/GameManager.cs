@@ -9,124 +9,71 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 // todo add sound manager
-// limit int values in range
 [System.Serializable]
 public class Dispersion
 {
-	// fromValue - min, toValue - max
-	public int fromValue, toValue;
+	public int lowValue, highValue;
 
-	// swap if min > max
 	public Dispersion(int min, int max)
 	{
 		if (min > max)
 		{
 			int temp = min;
-			this.fromValue = max;
-			this.toValue = min;
+			this.lowValue = max;
+			this.highValue = min;
 		}
 	}
 }
 
-// main game logic class
 public class GameManager : MonoBehaviour
 {
-	// public reference to current instance of GameManager 
-	public static GameManager instance = null;
-
-	// length of centipede (number of parts)
-	public int centipedeSize;
-
-	// speed of centipede movement
-	public float centipedeSpeed;
-
-	// range of mushrooms number to instantiate
-	//	public Dispersion mushroomsQty;
-	public int mushroomsQty;
-
-	// range were mushrooms can be instantiated
-	public Dispersion rowsAvailableForMushrooms;
-
-	// players ship object
-	public Ship ship;
-
-	// prefab of mushroom
-	public Mushroom mushroom;
-
-	// the height of each row where mushrooms will be set
-	public float rowHeight;
-
-	// reference to Text object that indicates count of lives
-	public Text lifeText;
-
-	// reference to Text object that indicates points score
-	public Text scoreText;
-
-	// reference to Text object that indicates current round
-	public Text roundText;
-
-	// reference to Text object that show messages at the center of the screen
-	public Text centerMessageText;
-
-	// time before loading next round after win or lose this round
-	public float timeToReload;
-
-	// edges of square borders where all game is going to take place
-	public float sceneEdge;
-
-	// ship movement speed 
-	public float shipSpeed;
-
-	// lives number at the start of new game
-	public int startLife;
-
-	// where from centipedes are going to start movement
-	public Vector2 startChainPosition;
-
-	// prefab of centipede part
-	public Centipede centipede;
-
-	// reference to restart button
-	public Button restartButton;
-
-	// centipede parts list
-	internal List<Centipede> chain;
-
-	internal Action LoseRound = () => { };
-	internal Action StartNewRound = () => { };
-
-	// current life and score
-	private int life;
-
-	private int score = 0;
-
-	// list of positions where mushrooms can be set
-	private List<Vector2> mushroomsGrid;
 	public Vector2[,] grid { get; private set; }
+	public static GameManager instance = null;
+	public int centipedeSize;
+	public float centipedeSpeed;
+	public int mushroomsQty;
+	public Dispersion rowsAvailableForMushrooms;
+	public Player playerPrefab;
+	public Mushroom mushroomPrefab;
+	public float rowHeight;
+	public Text lifeText;
+	public Text scoreText;
+	public Text roundText;
+	public Text centerMessageText;
+	public float timeToReload;
+	public float sceneEdge;
+	public float playerMovementSpeed;
+	public int startLifeCount;
+	public Vector2 startChainPosition;
+	public Centipede centipedePrefab;
+	public Button restartButton;
+	public GameObject mushroomsParent;
+	public GameObject centipedeParent;
+	public BonusManager bonusManager;
 
-	// round of game	
+	internal List<Centipede> centipedeChain;
+	internal Action LoseRound = () => { };
+
+	private int life;
+	private int score = 0;
 	private int round = 1;
 	private int maxMushrooms = 0;
-
-	// flag is game paused
 	private bool isPaused = false;
 
 	void Awake()
 	{
 		instance = this;
-		chain = new List<Centipede>();
+		centipedeChain = new List<Centipede>();
+		LoseRound += StopCentipede;
+		LoseRound += ReduceLife;
 		GetGrid();
-		// set current round
 		SetRound();
-		// set mushrooms within the game field
 		SetMushrooms();
-		// create chain of centipede parts
 		SetCentipedeChain();
-		// load and show score from previous round
+		Instantiate(playerPrefab);
+		// load and show score and lives from previous round
 		AddScore(PlayerPrefs.GetInt("Score"));
-		// load and show lives count from previous round
-		ChangeLifeCount(PlayerPrefs.GetInt("Life"));
-		Instantiate(ship);
+		SetLife(PlayerPrefs.GetInt("Life"));
 	}
 
 	private void Update()
@@ -134,7 +81,6 @@ public class GameManager : MonoBehaviour
 		if (Input.GetButtonDown("Cancel"))
 		{
 			SetPause();
-			Debug.Log("Escape");
 		}
 	}
 
@@ -156,19 +102,19 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	// set mushrooms within the game field
 	private void SetMushrooms()
 	{
 		// TODO: replace TrimToMax here with adding/deleting it to event StartNewRound
 		mushroomsQty = TrimToMax(mushroomsQty, maxMushrooms);
 		for (int i = 0; i < mushroomsQty; i++)
 		{
-			Instantiate(mushroom, grid[
+			Mushroom mushroom = Instantiate(mushroomPrefab, grid[
 					Random.Range(
-						1 + rowsAvailableForMushrooms.fromValue,
-						grid.GetLength(0) - rowsAvailableForMushrooms.toValue),
+						1 + rowsAvailableForMushrooms.lowValue,
+						grid.GetLength(0) - rowsAvailableForMushrooms.highValue),
 					Random.Range(1, grid.GetLength(1) - 1)],
 				Quaternion.identity);
+			mushroom.transform.SetParent(mushroomsParent.transform);
 		}
 	}
 
@@ -178,19 +124,19 @@ public class GameManager : MonoBehaviour
 		return valueToCheck;
 	}
 
-	// instantiate centipede parts at startChainPosition
 	private void SetCentipedeChain()
 	{
 		for (int i = 0; i < centipedeSize; i++)
 		{
-			chain.Add(Instantiate(centipede, startChainPosition, Quaternion.identity));
+			Centipede centipede = Instantiate(centipedePrefab, startChainPosition, Quaternion.identity);
+			centipedeChain.Add(centipede);
+			centipede.transform.SetParent(centipedeParent.transform);
 		}
 
-		// make first part a head
-		chain[0].SetHead();
+		centipedeChain[0].SetHead();
 	}
-	
-	// save all available points into grid
+
+	// save all available points into array
 	private void GetGrid()
 	{
 		// count available rows and columns plus screen edges
@@ -199,7 +145,7 @@ public class GameManager : MonoBehaviour
 		float horizontal = -sceneEdge - rowHeight;
 		float vertical = horizontal;
 
-		for (int i = 0; i < count; i++, vertical  += rowHeight)
+		for (int i = 0; i < count; i++, vertical += rowHeight)
 		{
 			for (int j = 0; j < count; j++, horizontal += rowHeight)
 			{
@@ -211,67 +157,47 @@ public class GameManager : MonoBehaviour
 
 		// set maximum of mushrooms which could be instantiated
 		maxMushrooms =
-			((count - rowsAvailableForMushrooms.fromValue - rowsAvailableForMushrooms.toValue) * (count - 2)) / 3;
+			((count - rowsAvailableForMushrooms.lowValue - rowsAvailableForMushrooms.highValue) * (count - 2)) / 3;
 	}
 
-	
-	// add value to score and refresh it on screen
+
 	public void AddScore(int value)
 	{
 		score += value;
 		scoreText.text = "Score: " + score;
 	}
 
-	// increase(true) or decrease(false) number of lives by 1
-	public void ChangeLifeCount(bool trueWillAdd)
+	private void ReduceLife()
 	{
-		if (trueWillAdd)
-			life++;
-		else
+		life--;
+		if (life < 1)
 		{
-			life--;
-			// game lost if lives ended
-			if (life < 1)
-			{
-				LoseGame();
-			}
-			else
-				// restart level if there is more lives
-			{
-				// motivation :)
-				centerMessageText.text = "Try harder!";
-				centerMessageText.gameObject.SetActive(true);
-				// new round in a few seconds 
-				Invoke(nameof(NewRound), timeToReload);
-			}
+			LoseGame();
 		}
-
-		// show current life after change
-		PrintLife();
+		else // if lives left → restart current level
+		{
+			centerMessageText.text = "Try harder!";
+			centerMessageText.gameObject.SetActive(true);
+			Invoke(nameof(NewRound), timeToReload);
+		}
 	}
 
-	// direct set of current lives number with set value
-	private void ChangeLifeCount(int setValue)
+	private void SetLife(int setValue)
 	{
-		// set default if zero (used in new game)
-		life = (setValue < 1) ? startLife : setValue;
-		// show current life
+		// set default if zero (for the start of new game)
+		life = (setValue < 1) ? startLifeCount : setValue;
 		PrintLife();
 	}
 
-	// show current life number
 	private void PrintLife()
 	{
-		// temp empty string
 		string addText = "";
-		// set lives number text string
 		for (int i = 0; i < life; i++)
 		{
 			addText += "♥ ";
 		}
 
-		// show lives number 
-		lifeText.text = "Life: " + addText;
+		lifeText.text = addText;
 	}
 
 	// set current round and dependent params: speed and length of centipede and mushrooms quantity
@@ -282,26 +208,21 @@ public class GameManager : MonoBehaviour
 		centipedeSpeed += round * 0.05f;
 		centipedeSize += round / 3;
 		mushroomsQty += round * 3;
-		// mushroomsQty.toValue += round * 3;
 	}
 
-	// check if won in a few seconds
 	internal void CheckWin(float delayTime)
 	{
 		Invoke(nameof(CheckWin), delayTime);
 	}
 
-	// check if there is any centipede parts in game
 	private void CheckWin()
 	{
-		// if none - win this round
-		if (chain.Count == 0) WinRound();
+		if (centipedeChain.Count == 0) WinRound();
 	}
 
-	// stop movement for all centipede parts
-	internal void StopAll()
+	private void StopCentipede()
 	{
-		foreach (Centipede centi in chain)
+		foreach (Centipede centi in centipedeChain)
 		{
 			// turn off script
 			centi.enabled = false;
@@ -311,57 +232,41 @@ public class GameManager : MonoBehaviour
 				centi.rb.velocity = Vector2.zero;
 			}
 		}
-
-		// ship.enabled = false;
 	}
 
-	// show result and offer to start a new game
 	private void LoseGame()
 	{
-		// show lose message
 		centerMessageText.text = "GAME OVER\nYour score is " + score;
-		// activate button, which starts a new game
 		restartButton.gameObject.SetActive(true);
-		// set default lives and score
-		PlayerPrefs.SetInt("Life", startLife);
+		// set defaults
+		PlayerPrefs.SetInt("Life", startLifeCount);
 		PlayerPrefs.SetInt("Score", 0);
 		PlayerPrefs.SetInt("Round", 1);
-		// activate text object
 		centerMessageText.gameObject.SetActive(true);
 	}
 
-	// show congratulations and start a new round
 	private void WinRound()
 	{
-		// show win round message
 		centerMessageText.text = "You've won!\nGet ready for the next round";
-		// activate message object
 		centerMessageText.gameObject.SetActive(true);
-		// save round number
 		PlayerPrefs.SetInt("Round", ++round);
-		// new round in a few seconds
 		Invoke(nameof(NewRound), timeToReload);
 	}
 
 	// start a new game after lose (assigned as a button onClick function)
 	public void Restart()
 	{
-		// reset score
 		PlayerPrefs.SetInt("Score", 0);
 		ReloadLevel();
 	}
 
-	// start a new round if lost or won
 	private void NewRound()
 	{
-		// save current score and lives
 		PlayerPrefs.SetInt("Score", score);
 		PlayerPrefs.SetInt("Life", life);
-		// reload scene
 		ReloadLevel();
 	}
 
-	// reload current scene
 	private void ReloadLevel()
 	{
 		SceneManager.LoadScene("MainScene");

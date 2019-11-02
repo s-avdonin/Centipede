@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour
+public class Player : MonoBehaviour
 {
 	// interval between two shots, if button is kept pressed
 	public float timeToRepeatShot;
-	public Shot shot;
+	public Shot shotPrefab;
 	public GameObject deathAnimation;
 
+	internal List<Bonus> bonuses = new List<Bonus>();
+	internal float speed;
+
 	private Rigidbody2D rb;
-	private float speed;
+	private Shot shot;
 
 	// time passed from game load when shot was fired last time 
 	private float lastShotTime;
@@ -19,13 +22,12 @@ public class Ship : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		GameManager.instance.LoseRound += Killed;
+		GameManager.instance.bonusManager.player = this;
 	}
 
 	private void Start()
 	{
-		Debug.Log("Start called");
-		// reading ship speed from Game Manager
-		speed = GameManager.instance.shipSpeed;
+		speed = GameManager.instance.playerMovementSpeed;
 	}
 
 	// ship movement
@@ -48,14 +50,14 @@ public class Ship : MonoBehaviour
 			);
 	}
 
-	// shooting
 	private void Update()
 	{
 		// reading is fire pressed once or hold on for certain time
-		if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") && Time.time - lastShotTime > timeToRepeatShot)
+		if (((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && shot == null) &&
+			Time.time - lastShotTime > timeToRepeatShot)
 		{
 			lastShotTime = Time.time;
-			Instantiate(shot, rb.position + new Vector2(0f, 0.1f), Quaternion.identity);
+			shot = Instantiate(shotPrefab, rb.position + new Vector2(0f, 0.1f), Quaternion.identity);
 		}
 	}
 
@@ -64,5 +66,4 @@ public class Ship : MonoBehaviour
 		Instantiate(deathAnimation, transform.position, transform.rotation);
 		Destroy(gameObject);
 	}
-
 }

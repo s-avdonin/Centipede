@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326db70ba17411f46a0b526e97ab2421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ship: {fileID: 3811689063206438345, guid: 8c3113c2de2f6eb40a912eb34487badf, type: 3}
+  player: {fileID: 0}
 --- !u!114 &1601776434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -891,7 +891,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Life: \u2665 \u2665 \u2665 \u2665"
+  m_Text: Life
 --- !u!222 &1639688896
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1153,7 +1153,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Score: 0'
+  m_Text: Score
 --- !u!222 &2021949098
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1199,21 +1199,6 @@ PrefabInstance:
       propertyPath: restartButton
       value: 
       objectReference: {fileID: 736026198}
-    - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
-        type: 3}
-      propertyPath: mushroomsQty
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
-        type: 3}
-      propertyPath: rowsAvailableForMushrooms.fromValue
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7273819854204812343, guid: d56657422e45d9342bd1a94f4494b6a9,
-        type: 3}
-      propertyPath: rowsAvailableForMushrooms.toValue
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 7838774794488203554, guid: d56657422e45d9342bd1a94f4494b6a9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1360,7 +1345,7 @@ PrefabInstance:
     - target: {fileID: 8934137744905422117, guid: cc978d8c4fad3cf468d04b0346ef5af3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.75
+      value: -4.95
       objectReference: {fileID: 0}
     - target: {fileID: 8934137744905422117, guid: cc978d8c4fad3cf468d04b0346ef5af3,
         type: 3}
@@ -1406,11 +1391,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8934137744905422115, guid: cc978d8c4fad3cf468d04b0346ef5af3,
-        type: 3}
-      propertyPath: ship
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc978d8c4fad3cf468d04b0346ef5af3, type: 3}

@@ -1,5 +1,113 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &574444212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 574444213}
+  - component: {fileID: 574444214}
+  m_Layer: 0
+  m_Name: BonusManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &574444213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574444212}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.1205364, y: -0.44447947, z: -0.24316747}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7838774794488203554}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &574444214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574444212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79af4be435b567e40a624c175836c580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusChance: 15
+  bonusLifeTime: 10
+  playerSpeedMultiplier: 3
+  bonusPrefabs:
+  - {fileID: 5189891287028341204, guid: 457f89d52a0926445b64447bef2022c1, type: 3}
+--- !u!1 &905426960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 905426961}
+  m_Layer: 0
+  m_Name: CentepedeParts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &905426961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905426960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7838774794488203554}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1343471836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1343471837}
+  m_Layer: 0
+  m_Name: Mushrooms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1343471837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343471836}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7838774794488203554}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3621379900680029355
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,7 +135,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1343471837}
+  - {fileID: 905426961}
+  - {fileID: 574444213}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45,15 +156,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centipedeSize: 5
   centipedeSpeed: 1.5
-  mushroomsQty:
-    fromValue: 25
-    toValue: 40
-  mushroomsToAdd: 10
+  mushroomsQty: 30
   rowsAvailableForMushrooms:
-    fromValue: 4
-    toValue: 3
-  ship: {fileID: 3811689063206438345, guid: 8c3113c2de2f6eb40a912eb34487badf, type: 3}
-  mushroom: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
+    lowValue: 8
+    highValue: 5
+  playerPrefab: {fileID: 3811689063206438345, guid: 8c3113c2de2f6eb40a912eb34487badf,
+    type: 3}
+  mushroomPrefab: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
     type: 3}
   rowHeight: 0.25
   lifeText: {fileID: 0}
@@ -62,9 +171,12 @@ MonoBehaviour:
   centerMessageText: {fileID: 0}
   timeToReload: 4
   sceneEdge: 4.75
-  shipSpeed: 2.5
-  startLife: 4
+  playerMovementSpeed: 2
+  startLifeCount: 4
   startChainPosition: {x: 2.5, y: 5.2}
-  centipede: {fileID: 804134339393078052, guid: c65e87be8a979cd4da2989520ccd2b65,
+  centipedePrefab: {fileID: 804134339393078052, guid: c65e87be8a979cd4da2989520ccd2b65,
     type: 3}
   restartButton: {fileID: 0}
+  mushroomsParent: {fileID: 1343471836}
+  centipedeParent: {fileID: 905426960}
+  bonusManager: {fileID: 574444214}
