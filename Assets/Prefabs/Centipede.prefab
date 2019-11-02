@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 15
-  m_Sprite: {fileID: 21300000, guid: 318ca9f010f94f546b909bd4916affde, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9c8549a05df5d7d49a1f403897331a9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,15 +95,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 75
-  headSprite: {fileID: 21300000, guid: 380b266b5f28eeb409548e4bafc3db4d, type: 3}
   mushroom: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
     type: 3}
   distanceBetween: 0.15
   nextRowHeight: 4.5
   headSprites:
-    sprite1: {fileID: 21300000, guid: 4ef10e6d90a2fcb4bbd2c54936669848, type: 3}
-    sprite2: {fileID: 21300000, guid: 380b266b5f28eeb409548e4bafc3db4d, type: 3}
-    sprite3: {fileID: 21300000, guid: 18eae4be2f179b441bf8d9981147b3ed, type: 3}
+    sprite1: {fileID: 21300000, guid: bf7f9a2b684f9234998ee93153274af8, type: 3}
+    sprite2: {fileID: 21300000, guid: 4f50bffc3f892724987bceaaff4b6a95, type: 3}
+    sprite3: {fileID: 21300000, guid: 0c81c282f96bc2340afbeb42968ada28, type: 3}
 --- !u!50 &804134339393078075
 Rigidbody2D:
   serializedVersion: 4

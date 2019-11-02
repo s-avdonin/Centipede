@@ -96,6 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToRepeatShot: 0.3
   shot: {fileID: 2204721137380367238, guid: 956b7d0cd34cab948ba72fcb59c5e93e, type: 3}
+  deathAnimation: {fileID: 2286614402030943329, guid: 06deebe42de5e314dac24ff05d3323e5,
+    type: 3}
 --- !u!50 &3811689063206438358
 Rigidbody2D:
   serializedVersion: 4

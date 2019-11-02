@@ -43,14 +43,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581feb368bd06b646975784cbe55651f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centipedeSize: 10
-  centipedeSpeed: 2
+  centipedeSize: 5
+  centipedeSpeed: 1.5
   mushroomsQty:
-    fromValue: 75
-    toValue: 125
+    fromValue: 25
+    toValue: 40
+  mushroomsToAdd: 10
   rowsAvailableForMushrooms:
     fromValue: 4
     toValue: 3
+  ship: {fileID: 3811689063206438345, guid: 8c3113c2de2f6eb40a912eb34487badf, type: 3}
   mushroom: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
     type: 3}
   rowHeight: 0.25

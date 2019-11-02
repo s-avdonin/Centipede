@@ -246,6 +246,11 @@ public class Centipede : Destructible
 		{
 			GoDown();
 		}
+
+		if (other.gameObject.GetComponent<Ship>())
+		{
+			GameManager.instance.LoseRound();
+		}
 	}
 	/************* head segments movement block ↑↑↑ ***********/
 

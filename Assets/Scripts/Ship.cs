@@ -6,19 +6,19 @@ public class Ship : MonoBehaviour
 {
 	// interval between two shots, if button is kept pressed
 	public float timeToRepeatShot;
-	// prefab of a shot
 	public Shot shot;
-	
+	public GameObject deathAnimation;
+
 	private Rigidbody2D rb;
-	// ship's movement speed
 	private float speed;
+
 	// time passed from game load when shot was fired last time 
 	private float lastShotTime;
 
 	private void Awake()
 	{
-		Debug.Log("Awake called");
 		rb = GetComponent<Rigidbody2D>();
+		GameManager.instance.LoseRound += Killed;
 	}
 
 	private void Start()
@@ -39,7 +39,7 @@ public class Ship : MonoBehaviour
 		Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 		// set velocity in movement direction with movement speed
 		rb.velocity = movement * speed;
-		
+
 		// stop ship if out of borders
 		rb.position = new Vector2
 			(
@@ -51,20 +51,18 @@ public class Ship : MonoBehaviour
 	// shooting
 	private void Update()
 	{
-		Debug.Log("Update called");
 		// reading is fire pressed once or hold on for certain time
-		if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") && Time.time -lastShotTime > timeToRepeatShot)
+		if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1") && Time.time - lastShotTime > timeToRepeatShot)
 		{
-			// save current time as last shot time
 			lastShotTime = Time.time;
-			// create new shot in front of a ship
 			Instantiate(shot, rb.position + new Vector2(0f, 0.1f), Quaternion.identity);
 		}
 	}
 
-	// if shot leaves scene it has to be destroyed
-	private void OnBecameInvisible()
+	public void Killed()
 	{
+		Instantiate(deathAnimation, transform.position, transform.rotation);
 		Destroy(gameObject);
 	}
+
 }

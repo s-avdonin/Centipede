@@ -41,7 +41,8 @@ public class GameManager : MonoBehaviour
 	public float centipedeSpeed;
 
 	// range of mushrooms number to instantiate
-	public Dispersion mushroomsQty;
+	//	public Dispersion mushroomsQty;
+	public int mushroomsQty;
 
 	// range were mushrooms can be instantiated
 	public Dispersion rowsAvailableForMushrooms;
@@ -91,6 +92,9 @@ public class GameManager : MonoBehaviour
 	// centipede parts list
 	internal List<Centipede> chain;
 
+	internal Action LoseRound = () => { };
+	internal Action StartNewRound = () => { };
+
 	// current life and score
 	private int life;
 
@@ -102,6 +106,7 @@ public class GameManager : MonoBehaviour
 
 	// round of game	
 	private int round = 1;
+	private int maxMushrooms = 0;
 
 	// flag is game paused
 	private bool isPaused = false;
@@ -121,6 +126,7 @@ public class GameManager : MonoBehaviour
 		AddScore(PlayerPrefs.GetInt("Score"));
 		// load and show lives count from previous round
 		ChangeLifeCount(PlayerPrefs.GetInt("Life"));
+		Instantiate(ship);
 	}
 
 	private void Update()
@@ -153,27 +159,23 @@ public class GameManager : MonoBehaviour
 	// set mushrooms within the game field
 	private void SetMushrooms()
 	{
-		// create list of possible positions for mushrooms
-		mushroomsGrid = GetMushroomsGrid();
-		// maximum half of available positions may be occupied
-		mushroomsQty.fromValue = CheckIfOverMaximum(mushroomsQty.fromValue, mushroomsGrid.Count / 2);
-		mushroomsQty.toValue = CheckIfOverMaximum(mushroomsQty.toValue, mushroomsGrid.Count / 2);
-		// set number of mushrooms to instantiate
-		int qty = Random.Range(mushroomsQty.fromValue - 1, mushroomsQty.toValue);
-		// instantiate mushrooms at random positions 
-		for (int i = 0; i < qty; i++)
+		// TODO: replace TrimToMax here with adding/deleting it to event StartNewRound
+		mushroomsQty = TrimToMax(mushroomsQty, maxMushrooms);
+		for (int i = 0; i < mushroomsQty; i++)
 		{
-			MushroomAtRandomPosition();
+			Instantiate(mushroom, grid[
+					Random.Range(
+						1 + rowsAvailableForMushrooms.fromValue,
+						grid.GetLength(0) - rowsAvailableForMushrooms.toValue),
+					Random.Range(1, grid.GetLength(1) - 1)],
+				Quaternion.identity);
 		}
 	}
 
-	// take half of valueToCheck if it is over maximum
-	private int CheckIfOverMaximum(int valueToCheck, int maximum)
+	private int TrimToMax(int valueToCheck, int maximum)
 	{
-		// repeat if valueToCheck is still over maximum
-		if (valueToCheck > maximum)
-			return CheckIfOverMaximum(valueToCheck / 2, maximum);
-		else return valueToCheck;
+		if (valueToCheck > maximum) return maximum;
+		return valueToCheck;
 	}
 
 	// instantiate centipede parts at startChainPosition
@@ -187,66 +189,32 @@ public class GameManager : MonoBehaviour
 		// make first part a head
 		chain[0].SetHead();
 	}
-
-	// instantiate mushrooms at random positions
-	private void MushroomAtRandomPosition()
-	{
-		// take some random index within count of available positions
-		int randomIndex = Random.Range(0, mushroomsGrid.Count);
-		// instantiate mushroom 
-		Instantiate(mushroom, mushroomsGrid[randomIndex], Quaternion.identity);
-		// remove used position from list
-		mushroomsGrid.RemoveAt(randomIndex);
-	}
-
+	
+	// save all available points into grid
 	private void GetGrid()
 	{
-		// count available rows and columns
+		// count available rows and columns plus screen edges
 		int count = Convert.ToInt32(sceneEdge * 2 / rowHeight) + 3;
 		grid = new Vector2[count, count];
 		float horizontal = -sceneEdge - rowHeight;
 		float vertical = horizontal;
 
-		for (int i = 0; i < count; i++, horizontal += rowHeight)
+		for (int i = 0; i < count; i++, vertical  += rowHeight)
 		{
-			for (int j = 0; j < count; j++, vertical += rowHeight)
+			for (int j = 0; j < count; j++, horizontal += rowHeight)
 			{
 				grid[i, j] = new Vector2(horizontal, vertical);
 			}
 
-			vertical = -sceneEdge - rowHeight;
+			horizontal = -sceneEdge - rowHeight;
 		}
 
-		/*int row = 0;
-		int column = 0;
-		for (float i = -sceneEdge; i <= sceneEdge; i += rowHeight, row++)
-		{
-			for (float j = -sceneEdge; j <= sceneEdge; j += rowHeight, column++)
-			{
-				grid[row, column] = new Vector2(i, j);
-			}
-		}*/
+		// set maximum of mushrooms which could be instantiated
+		maxMushrooms =
+			((count - rowsAvailableForMushrooms.fromValue - rowsAvailableForMushrooms.toValue) * (count - 2)) / 3;
 	}
 
-	// get list of possible positions
-	private List<Vector2> GetMushroomsGrid()
-	{
-		// create temp list
-		List<Vector2> coords = new List<Vector2>();
-		// add each available position within edges
-		for (float i = -sceneEdge; i <= sceneEdge; i += rowHeight)
-		{
-			for (float j = -sceneEdge + (rowsAvailableForMushrooms.fromValue * rowHeight);
-				j <= sceneEdge - (rowsAvailableForMushrooms.toValue * rowHeight);
-				j += rowHeight)
-			{
-				coords.Add(new Vector2(i, j));
-			}
-		}
-
-		return coords;
-	}
-
+	
 	// add value to score and refresh it on screen
 	public void AddScore(int value)
 	{
@@ -313,8 +281,8 @@ public class GameManager : MonoBehaviour
 		roundText.text = "Round " + round;
 		centipedeSpeed += round * 0.05f;
 		centipedeSize += round / 3;
-		mushroomsQty.fromValue += round * 3;
-		mushroomsQty.toValue += round * 3;
+		mushroomsQty += round * 3;
+		// mushroomsQty.toValue += round * 3;
 	}
 
 	// check if won in a few seconds
