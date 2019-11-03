@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Bonus.cs" />
     <Compile Include="Assets\Scripts\BonusManager.cs" />
     <Compile Include="Assets\Scripts\Centipede.cs" />
+    <Compile Include="Assets\Scripts\CentipedeSlowDown.cs" />
     <Compile Include="Assets\Scripts\Destructible.cs" />
     <Compile Include="Assets\Scripts\FinishLine.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerSpeedUp.cs" />
     <Compile Include="Assets\Scripts\Shot.cs" />
+    <Compile Include="Assets\Scripts\ShotSpeedUp.cs" />
     <Compile Include="Assets\Scripts\TestButton.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Projects/2019/Unity/Centipede/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

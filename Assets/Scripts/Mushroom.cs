@@ -21,6 +21,7 @@ public class Mushroom : Destructible
 
 	private void Awake()
 	{
+		transform.SetParent(GameManager.instance.mushroomsParent.transform);
 		// set reference
 		sr = GetComponent<SpriteRenderer>();
 	}
@@ -43,7 +44,7 @@ public class Mushroom : Destructible
 			case 4:
 				GameManager.instance.AddScore(scoreValue);
 				// call for bonuses
-				GameManager.instance.bonusManager.CreateBonus(GetComponent<Rigidbody2D>().position);
+				GameManager.instance.bonusManager.DropBonus(GetComponent<Rigidbody2D>().position);
 				Destroy(gameObject);
 				break;
 		}

@@ -43,11 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79af4be435b567e40a624c175836c580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bonusChance: 15
-  bonusLifeTime: 10
-  playerSpeedMultiplier: 3
+  bonusesChanceToDrop: 30
+  bonusesLifeTime: 5
+  playerSpeedMultiplier: 2
+  shotSpeedMultiplier: 2
+  centipedeSlowMultiplier: 0.5
   bonusPrefabs:
   - {fileID: 5189891287028341204, guid: 457f89d52a0926445b64447bef2022c1, type: 3}
+  - {fileID: 9197313467305129882, guid: 7da06a3435b1dd84f8c4819b961c3899, type: 3}
+  - {fileID: 4801021465212564588, guid: 5e12330b76a38004184d9ecee5d18ea6, type: 3}
 --- !u!1 &905426960
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +176,7 @@ MonoBehaviour:
   timeToReload: 4
   sceneEdge: 4.75
   playerMovementSpeed: 2
+  shotMovementSpeed: 7
   startLifeCount: 4
   startChainPosition: {x: 2.5, y: 5.2}
   centipedePrefab: {fileID: 804134339393078052, guid: c65e87be8a979cd4da2989520ccd2b65,

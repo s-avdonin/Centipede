@@ -6,36 +6,19 @@ using UnityEngine;
 
 public class Centipede : Destructible
 {
-	// points given to player for this object destruction
 	public int scoreValue;
-
-	// mushroom prefab
-	public Mushroom mushroom;
-
-	// distance between centipede parts
-	public float distanceBetween;
-
-	// Y value of the next row
+	public Mushroom mushroomPrefab;
+	public float distanceBetweenParts;
 	public float nextRowHeight;
-
-	// head sprites: left, down and right
 	public ThreeSprites headSprites;
 
-	// flag is this centipede part a head part
 	internal bool isHead;
 	internal Rigidbody2D rb;
-
-	// reference to the list of all centipede parts
-	private List<Centipede> chain;
-
-	// horizontal movement direction in Vector2 format
+	internal float movementSpeed;
+	
+	private List<Centipede> centipedeChain;
 	private Vector2 leftOrRight = Vector2.right;
-
-	// list of positions at each frame for this centipede part
-	private List<Vector2> positionsList;
-
-	// speed of this centipede part
-	private float speed;
+	private List<Vector2> previousPositions;
 
 	// store index of previous centipede part in chain 
 	private int leaderIndex = 0;
@@ -53,7 +36,7 @@ public class Centipede : Destructible
 		// initialize objects
 		rb = GetComponent<Rigidbody2D>();
 		sr = GetComponent<SpriteRenderer>();
-		positionsList = new List<Vector2>();
+		previousPositions = new List<Vector2>();
 		MoveBody += CheckDistance;
 	}
 
@@ -61,13 +44,13 @@ public class Centipede : Destructible
 	private void Start()
 	{
 		// set reference to the list of centipede parts 
-		chain = GameManager.instance.centipedeChain;
+		centipedeChain = GameManager.instance.centipedeChain;
 		// read speed from Game Manager
-		speed = GameManager.instance.centipedeSpeed;
+		movementSpeed = GameManager.instance.centipedeSpeed;
 		if (isHead)
 		{
 			// start movement for the first head object
-			rb.velocity = -Vector2.up * speed;
+			rb.velocity = -Vector2.up * movementSpeed;
 		}
 		else // if this is not head
 		{
@@ -79,17 +62,17 @@ public class Centipede : Destructible
 	// find indices of this object and its leader in centipede parts list
 	private void FindMyIndex()
 	{
-		myIndexInChain = chain.IndexOf(this);
+		myIndexInChain = centipedeChain.IndexOf(this);
 		leaderIndex = (myIndexInChain == 0) ? 0 : (myIndexInChain - 1);
 	}
 
 	internal override void ReceiveShot()
 	{
 		// if this is not last centipede part in list
-		if (myIndexInChain != chain.Count - 1)
+		if (myIndexInChain != centipedeChain.Count - 1)
 		{
 			// define next centipede part
-			Centipede next = chain[myIndexInChain + 1];
+			Centipede next = centipedeChain[myIndexInChain + 1];
 			// set next as head
 			next.SetHead();
 			// start next centipede part's movement in direction of this object
@@ -97,13 +80,13 @@ public class Centipede : Destructible
 		}
 
 		// instantiate mushroom at this object's current position
-		Instantiate(mushroom, transform.position, Quaternion.identity);
+		Instantiate(mushroomPrefab, transform.position, Quaternion.identity);
 		// add score 
 		GameManager.instance.AddScore(scoreValue);
 		// removing self from list
-		chain.RemoveAt(myIndexInChain);
+		centipedeChain.RemoveAt(myIndexInChain);
 		// refresh all indices
-		foreach (Centipede centipede in chain)
+		foreach (Centipede centipede in centipedeChain)
 		{
 			centipede.FindMyIndex();
 		}
@@ -127,12 +110,12 @@ public class Centipede : Destructible
 		if (Mathf.Abs(nextStep.x) > Mathf.Abs(nextStep.y))
 		{
 			// move horizontally 
-			rb.velocity = leftOrRight * speed;
+			rb.velocity = leftOrRight * movementSpeed;
 		}
 		else // if direction is rather vertical
 		{
 			// move down
-			rb.velocity = Vector2.down * speed;
+			rb.velocity = Vector2.down * movementSpeed;
 		}
 
 		// check and set sprite in accordance to movement direction
@@ -158,14 +141,14 @@ public class Centipede : Destructible
 	private void SavePosition()
 	{
 		// if this is last of centipede parts → do not save
-		if (myIndexInChain == chain.Count - 1) return;
+		if (myIndexInChain == centipedeChain.Count - 1) return;
 
 		// save first position to list
-		if (positionsList.Count == 0) positionsList.Add(rb.position);
+		if (previousPositions.Count == 0) previousPositions.Add(rb.position);
 		// save current position to list if it is not the same as at last frame 
-		else if (positionsList[positionsList.Count - 1] != rb.position || !wait)
+		else if (previousPositions[previousPositions.Count - 1] != rb.position || !wait)
 		{
-			positionsList.Add(rb.position);
+			previousPositions.Add(rb.position);
 			wait = false;
 		}
 	}
@@ -202,9 +185,9 @@ public class Centipede : Destructible
 			do
 			{
 				// reduce this objects next row height with special value
-				chain[i].nextRowHeight -= GameManager.instance.rowHeight;
+				centipedeChain[i].nextRowHeight -= GameManager.instance.rowHeight;
 				i++;
-			} while (i < chain.Count && !chain[i].isHead);
+			} while (i < centipedeChain.Count && !centipedeChain[i].isHead);
 
 			// change direction of horizontal movement and move
 			ToLeftOrToRight();
@@ -218,13 +201,13 @@ public class Centipede : Destructible
 	private void ToLeftOrToRight()
 	{
 		leftOrRight = -leftOrRight;
-		rb.velocity = leftOrRight * speed;
+		rb.velocity = leftOrRight * movementSpeed;
 	}
 
 	// move down
 	private void GoDown()
 	{
-		rb.velocity = Vector2.down * speed;
+		rb.velocity = Vector2.down * movementSpeed;
 	}
 
 	// check and set sprite in accordance to movement direction
@@ -278,9 +261,9 @@ public class Centipede : Destructible
 	private void CheckDistance()
 	{
 		// check distance to previous centipede part 
-		float distanceToLeader = Vector2.Distance(rb.position, chain[leaderIndex].rb.position);
+		float distanceToLeader = Vector2.Distance(rb.position, centipedeChain[leaderIndex].rb.position);
 		// if distance is greater than defined → start movement
-		if (distanceToLeader > distanceBetween)
+		if (distanceToLeader > distanceBetweenParts)
 		{
 			MoveBody -= CheckDistance;
 			MoveBody += Follow;
@@ -292,8 +275,8 @@ public class Centipede : Destructible
 	private void Follow()
 	{
 		// change this object's position to previous centipede part's position
-		rb.position = chain[leaderIndex].positionsList[0];
+		rb.position = centipedeChain[leaderIndex].previousPositions[0];
 		// remove this position from previous centipede part's positions list
-		chain[leaderIndex].positionsList.RemoveAt(0);
+		centipedeChain[leaderIndex].previousPositions.RemoveAt(0);
 	}
 }

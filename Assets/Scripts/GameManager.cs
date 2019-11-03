@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 	public float timeToReload;
 	public float sceneEdge;
 	public float playerMovementSpeed;
+	public float shotMovementSpeed;
 	public int startLifeCount;
 	public Vector2 startChainPosition;
 	public Centipede centipedePrefab;
@@ -108,13 +109,13 @@ public class GameManager : MonoBehaviour
 		mushroomsQty = TrimToMax(mushroomsQty, maxMushrooms);
 		for (int i = 0; i < mushroomsQty; i++)
 		{
+			// BUG: places a number of instances into one point
 			Mushroom mushroom = Instantiate(mushroomPrefab, grid[
 					Random.Range(
 						1 + rowsAvailableForMushrooms.lowValue,
 						grid.GetLength(0) - rowsAvailableForMushrooms.highValue),
 					Random.Range(1, grid.GetLength(1) - 1)],
 				Quaternion.identity);
-			mushroom.transform.SetParent(mushroomsParent.transform);
 		}
 	}
 

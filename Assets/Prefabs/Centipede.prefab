@@ -95,9 +95,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 75
-  mushroom: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
+  mushroomPrefab: {fileID: 2246468260420089655, guid: 59e2ba792d6257d49bdfeb98973b352e,
     type: 3}
-  distanceBetween: 0.15
+  distanceBetweenParts: 0.15
   nextRowHeight: 4.5
   headSprites:
     sprite1: {fileID: 21300000, guid: bf7f9a2b684f9234998ee93153274af8, type: 3}

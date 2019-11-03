@@ -5,17 +5,19 @@ using UnityEngine;
 
 public class Shot : MonoBehaviour
 {
-	public float speed;
-
-	private Rigidbody2D rb;
 
 	// flag if object has already hit smth. 
 	private bool used = false;
+	private float speed;
+	private Rigidbody2D rb;
+	private float speedMultiplier;
 
 	private void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		rb.velocity = new Vector2(0f, 1f) * speed;
+		speed = GameManager.instance.shotMovementSpeed;
+		speedMultiplier = GameManager.instance.bonusManager.activeShotMultiplier;
+		rb.velocity = speedMultiplier * speed * new Vector2(0f, 1f);
 	}
 
 	// give damage if can
