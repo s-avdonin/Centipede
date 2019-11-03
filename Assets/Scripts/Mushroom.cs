@@ -10,7 +10,7 @@ public class ThreeSprites
 	public Sprite sprite1, sprite2, sprite3;
 }
 
-public class Mushroom : Destructible
+public class Mushroom : MonoBehaviour, IDestructible
 {
 	public int scoreValue;
 
@@ -26,7 +26,7 @@ public class Mushroom : Destructible
 		sr = GetComponent<SpriteRenderer>();
 	}
 
-	internal override void ReceiveShot()
+	public void ReceiveShot()
 	{
 		damage++;
 		switch (damage)

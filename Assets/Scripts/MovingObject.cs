@@ -9,7 +9,7 @@ public class MovingObject : MonoBehaviour
 
 	protected Rigidbody2D rb;
 
-	protected void Awake()
+	protected virtual void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
 		Move();

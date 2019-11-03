@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Centipede : Destructible
+public class Centipede : MonoBehaviour, IDestructible
 {
 	public int scoreValue;
 	public Mushroom mushroomPrefab;
@@ -66,7 +66,7 @@ public class Centipede : Destructible
 		leaderIndex = (myIndexInChain == 0) ? 0 : (myIndexInChain - 1);
 	}
 
-	internal override void ReceiveShot()
+	public void ReceiveShot()
 	{
 		// if this is not last centipede part in list
 		if (myIndexInChain != centipedeChain.Count - 1)

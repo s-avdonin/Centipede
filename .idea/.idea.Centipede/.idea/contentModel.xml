@@ -8,19 +8,28 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Background.cs" t="Include" />
-          <e p="Bonus.cs" t="Include" />
-          <e p="BonusManager.cs" t="Include" />
+          <e p="Bonuses" t="Include">
+            <e p="Bonus.cs" t="Include" />
+            <e p="BonusManager.cs" t="Include" />
+            <e p="CentipedeSlowDown.cs" t="Include" />
+            <e p="PlayerSpeedUp.cs" t="Include" />
+            <e p="ShotSpeedUp.cs" t="Include" />
+          </e>
           <e p="Centipede.cs" t="Include" />
-          <e p="CentipedeSlowDown.cs" t="Include" />
-          <e p="Destructible.cs" t="Include" />
           <e p="FinishLine.cs" t="Include" />
+          <e p="Foes" t="Include">
+            <e p="Ant.cs" t="Include" />
+            <e p="Foe.cs" t="Include" />
+            <e p="FoesManager.cs" t="Include" />
+          </e>
           <e p="GameManager.cs" t="Include" />
+          <e p="Interfaces" t="Include">
+            <e p="IDestructible.cs" t="Include" />
+          </e>
           <e p="MovingObject.cs" t="Include" />
           <e p="Mushroom.cs" t="Include" />
           <e p="Player.cs" t="Include" />
-          <e p="PlayerSpeedUp.cs" t="Include" />
           <e p="Shot.cs" t="Include" />
-          <e p="ShotSpeedUp.cs" t="Include" />
           <e p="TestButton.cs" t="Include" />
         </e>
       </e>

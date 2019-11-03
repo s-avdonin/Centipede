@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	public void Killed()
+	private void Killed()
 	{
 		Instantiate(deathAnimation, transform.position, transform.rotation);
 		Destroy(gameObject);

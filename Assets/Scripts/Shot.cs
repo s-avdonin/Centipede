@@ -24,10 +24,10 @@ public class Shot : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		// stop function if already hit anything or object can not be hit 
-		if (used || !other.gameObject.GetComponent<Destructible>()) return;
-		// prevent double hit of close objects → set flag 
+		if (used || (other.gameObject.GetComponent<IDestructible>() == null)) return;
+		// prevent double hit of close objects 
 		used = true;
-		other.gameObject.GetComponent<Destructible>().ReceiveShot();
+		other.gameObject.GetComponent<IDestructible>().ReceiveShot();
 		Destroy(gameObject);
 	}
 

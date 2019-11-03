@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\MerKi\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\MerKi\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_Centipede.-1291365046.00" t="ExcludeRecursive" />
+    <e p="E:\Projects\2019\Unity\Centipede" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Scripts" t="Include">
+          <e p="Background.cs" t="Include" />
+          <e p="Bonus.cs" t="Include" />
+          <e p="BonusManager.cs" t="Include" />
+          <e p="Centipede.cs" t="Include" />
+          <e p="CentipedeSlowDown.cs" t="Include" />
+          <e p="Destructible.cs" t="Include" />
+          <e p="FinishLine.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
+          <e p="MovingObject.cs" t="Include" />
+          <e p="Mushroom.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="PlayerSpeedUp.cs" t="Include" />
+          <e p="Shot.cs" t="Include" />
+          <e p="ShotSpeedUp.cs" t="Include" />
+          <e p="TestButton.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Centipede.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>

@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 	public GameObject mushroomsParent;
 	public GameObject centipedeParent;
 	public BonusManager bonusManager;
+	public FoesManager foesManager;
 
 	internal List<Centipede> centipedeChain;
 	internal Action LoseRound = () => { };
@@ -105,7 +106,6 @@ public class GameManager : MonoBehaviour
 
 	private void SetMushrooms()
 	{
-		// TODO: replace TrimToMax here with adding/deleting it to event StartNewRound
 		mushroomsQty = TrimToMax(mushroomsQty, maxMushrooms);
 		for (int i = 0; i < mushroomsQty; i++)
 		{
