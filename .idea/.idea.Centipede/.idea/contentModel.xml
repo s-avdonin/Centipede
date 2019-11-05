@@ -21,6 +21,7 @@
             <e p="Ant.cs" t="Include" />
             <e p="Foe.cs" t="Include" />
             <e p="FoesManager.cs" t="Include" />
+            <e p="Spider.cs" t="Include" />
           </e>
           <e p="GameManager.cs" t="Include" />
           <e p="Interfaces" t="Include">

@@ -35,9 +35,10 @@ public class Ant : Foe
 		}
 	}
 
-	protected override void SetPosition()
+	protected override void SetStartPosition()
 	{
-		Vector2 position = grid[grid.GetLength(0) - 1, Random.Range(1, grid.GetLength(1)) - 1];
+		// between scene edges
+		Vector2 position = grid[grid.GetLength(0) - 1, Random.Range(2, grid.GetLength(1)) - 1];
 		transform.position = position;
 	}
 }

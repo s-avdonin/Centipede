@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Foes\Ant.cs" />
     <Compile Include="Assets\Scripts\Foes\Foe.cs" />
     <Compile Include="Assets\Scripts\Foes\FoesManager.cs" />
+    <Compile Include="Assets\Scripts\Foes\Spider.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDestructible.cs" />
     <Compile Include="Assets\Scripts\MovingObject.cs" />

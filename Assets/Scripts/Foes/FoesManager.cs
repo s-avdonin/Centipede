@@ -8,14 +8,33 @@ using Random = UnityEngine.Random;
 public class FoesManager : MonoBehaviour
 {
 	public float secondsToNewFoe;
-	[Range(1, 100)] public int chanceForAntToCreateMushroom;
+	[Range(0, 100)] public int chanceForAntToCreateMushroom;
+	[Range(0, 100)] public int chanceForSpiderToChangeDirection;
+	[Range(0, 100)] public int chanceForSpiderToEatMushroom;
 	public List<Foe> foesPrefabs;
 
-	private Coroutine CreateNewFoeCoroutine;
+	internal List<float> possibleHeightsForSpider;
+
+	private void Awake()
+	{
+	}
 
 	private void Start()
 	{
-		CreateNewFoeCoroutine = StartCoroutine(CreateNewFoe(secondsToNewFoe));
+		SetPossibleHeights();
+		StartCoroutine(CreateNewFoe(secondsToNewFoe));
+	}
+
+	private void SetPossibleHeights()
+	{
+		possibleHeightsForSpider = new List<float>();
+		for (float height = -GameManager.instance.sceneEdge;
+			height <= GameManager.instance.topBorderForPlayer;
+			height +=
+				GameManager.instance.rowHeight)
+		{
+			possibleHeightsForSpider.Add(height);
+		}
 	}
 
 	// ReSharper disable once FunctionRecursiveOnAllPaths
@@ -24,6 +43,6 @@ public class FoesManager : MonoBehaviour
 		yield return new WaitForSeconds(secondsToSpawn);
 		Instantiate(foesPrefabs[Random.Range(0, foesPrefabs.Count)]);
 		// repeat in defined time
-		CreateNewFoeCoroutine = StartCoroutine(CreateNewFoe(secondsToNewFoe));
+		StartCoroutine(CreateNewFoe(secondsToNewFoe));
 	}
 }

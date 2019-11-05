@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 	public Text centerMessageText;
 	public float timeToReload;
 	public float sceneEdge;
+	public float topBorderForPlayer;
 	public float playerMovementSpeed;
 	public float shotMovementSpeed;
 	public int startLifeCount;

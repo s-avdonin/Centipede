@@ -24,8 +24,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574444212}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1205364, y: -0.44447947, z: -0.24316747}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7838774794488203554}
@@ -95,8 +95,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e345758e59ce17f44a977afef456d0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsToNewFoe: 0
-  foesPrefabs: []
+  secondsToNewFoe: 10
+  chanceForAntToCreateMushroom: 15
+  chanceForSpiderToChangeDirection: 15
+  chanceForSpiderToEatMushroom: 50
+  foesPrefabs:
+  - {fileID: 6718135944950331200, guid: 577e2a1b67efee04a905ed598a0f7a6b, type: 3}
+  - {fileID: 7859003474622746935, guid: 81be620f00f5a264dba79d314dc00146, type: 3}
 --- !u!1 &905426960
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +226,7 @@ MonoBehaviour:
   centerMessageText: {fileID: 0}
   timeToReload: 4
   sceneEdge: 4.75
+  topBorderForPlayer: 0
   playerMovementSpeed: 2
   shotMovementSpeed: 7
   startLifeCount: 4
@@ -231,3 +237,4 @@ MonoBehaviour:
   mushroomsParent: {fileID: 1343471836}
   centipedeParent: {fileID: 905426960}
   bonusManager: {fileID: 574444214}
+  foesManager: {fileID: 662969452}

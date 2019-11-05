@@ -12,10 +12,10 @@ public class MovingObject : MonoBehaviour
 	protected virtual void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		Move();
+		StartMovement();
 	}
 
-	protected virtual void Move()
+	protected virtual void StartMovement()
 	{
 		rb.velocity = Vector2.down * movementSpeed;
 	}

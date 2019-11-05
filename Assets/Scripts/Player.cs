@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
 
 	private Rigidbody2D rb;
 	private Shot shot;
+	private float sceneEdge;
+	private float topBorder;
 
 	// time passed from game load when shot was fired last time 
 	private float lastShotTime;
@@ -28,6 +30,8 @@ public class Player : MonoBehaviour
 	private void Start()
 	{
 		speed = GameManager.instance.playerMovementSpeed;
+		sceneEdge = GameManager.instance.sceneEdge;
+		topBorder = GameManager.instance.topBorderForPlayer;
 	}
 
 	// ship movement
@@ -45,8 +49,8 @@ public class Player : MonoBehaviour
 		// stop ship if out of borders
 		rb.position = new Vector2
 			(
-			Mathf.Clamp(rb.position.x, -GameManager.instance.sceneEdge, GameManager.instance.sceneEdge),
-			Mathf.Clamp(rb.position.y, -GameManager.instance.sceneEdge, 0f)
+			Mathf.Clamp(rb.position.x, -sceneEdge, sceneEdge),
+			Mathf.Clamp(rb.position.y, -sceneEdge, topBorder)
 			);
 	}
 
@@ -63,7 +67,8 @@ public class Player : MonoBehaviour
 
 	private void Killed()
 	{
-		Instantiate(deathAnimation, transform.position, transform.rotation);
+		Transform tf = transform;
+		Instantiate(deathAnimation, tf.position, tf.rotation);
 		Destroy(gameObject);
 	}
 }
