@@ -661,7 +661,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326db70ba17411f46a0b526e97ab2421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!114 &1601776434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,8 +704,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1601776433}
-        m_MethodName: Call
+      - m_Target: {fileID: 759651536}
+        m_MethodName: CheckMushrooms
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

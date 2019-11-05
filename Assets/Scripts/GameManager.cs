@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-// todo add sound manager
 [System.Serializable]
 public class Dispersion
 {
@@ -16,23 +13,20 @@ public class Dispersion
 
 	public Dispersion(int min, int max)
 	{
-		if (min > max)
-		{
-			int temp = min;
-			this.lowValue = max;
-			this.highValue = min;
-		}
+		if (min < max) return;
+		this.lowValue = max;
+		this.highValue = min;
 	}
 }
 
 public class GameManager : MonoBehaviour
 {
+	public static GameManager instance;
 	public Vector2[,] grid { get; private set; }
-	public static GameManager instance = null;
 	public int centipedeSize;
 	public float centipedeSpeed;
 	public int mushroomsQty;
-	public Dispersion rowsAvailableForMushrooms;
+	public Dispersion rowsWithoutMushrooms;
 	public Player playerPrefab;
 	public Mushroom mushroomPrefab;
 	public float rowHeight;
@@ -58,10 +52,10 @@ public class GameManager : MonoBehaviour
 	internal Action LoseRound = () => { };
 
 	private int life;
-	private int score = 0;
+	private int score;
 	private int round = 1;
-	private int maxMushrooms = 0;
-	private bool isPaused = false;
+	private int maxMushrooms;
+	private bool isPaused;
 
 	void Awake()
 	{
@@ -81,10 +75,18 @@ public class GameManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetButtonDown("Cancel"))
-		{
-			SetPause();
-		}
+		if (Input.GetButtonDown("Cancel")) SetPause();
+	}
+
+	
+	internal static bool HasMushroom(Vector2 point)
+	{
+		// select all colliders at defined point
+		// ReSharper disable once Unity.PreferNonAllocApi
+		var colliders = Physics2D.OverlapPointAll(point);
+		// select mushrooms' colliders among others
+		var mushroomColliders = colliders.Where(col => (col.gameObject.GetComponent<Mushroom>() != null));
+		return mushroomColliders.Any();
 	}
 
 	private void SetPause()
@@ -110,13 +112,17 @@ public class GameManager : MonoBehaviour
 		mushroomsQty = TrimToMax(mushroomsQty, maxMushrooms);
 		for (int i = 0; i < mushroomsQty; i++)
 		{
-			// BUG: places a number of instances into one point
-			Mushroom mushroom = Instantiate(mushroomPrefab, grid[
-					Random.Range(
-						1 + rowsAvailableForMushrooms.lowValue,
-						grid.GetLength(0) - rowsAvailableForMushrooms.highValue),
-					Random.Range(1, grid.GetLength(1) - 1)],
-				Quaternion.identity);
+			Vector3 coordinates = grid[
+				Random.Range(
+					1 + rowsWithoutMushrooms.lowValue,
+					grid.GetLength(0) - rowsWithoutMushrooms.highValue),
+				Random.Range(1, grid.GetLength(1) - 1)];
+			if (HasMushroom(coordinates))
+			{
+				i--;
+				continue;
+			}
+			Instantiate(mushroomPrefab, coordinates, Quaternion.identity);
 		}
 	}
 
@@ -135,7 +141,7 @@ public class GameManager : MonoBehaviour
 			centipede.transform.SetParent(centipedeParent.transform);
 		}
 
-		centipedeChain[0].SetHead();
+		centipedeChain[0].MarkAsHead();
 	}
 
 	// save all available points into array
@@ -149,17 +155,15 @@ public class GameManager : MonoBehaviour
 
 		for (int i = 0; i < count; i++, vertical += rowHeight)
 		{
-			for (int j = 0; j < count; j++, horizontal += rowHeight)
-			{
+			for (int j = 0; j < count; j++, horizontal += rowHeight) 
 				grid[i, j] = new Vector2(horizontal, vertical);
-			}
 
 			horizontal = -sceneEdge - rowHeight;
 		}
 
 		// set maximum of mushrooms which could be instantiated
 		maxMushrooms =
-			((count - rowsAvailableForMushrooms.lowValue - rowsAvailableForMushrooms.highValue) * (count - 2)) / 3;
+			((count - rowsWithoutMushrooms.lowValue - rowsWithoutMushrooms.highValue) * (count - 2)) / 3;
 	}
 
 
@@ -194,10 +198,7 @@ public class GameManager : MonoBehaviour
 	private void PrintLife()
 	{
 		string addText = "";
-		for (int i = 0; i < life; i++)
-		{
-			addText += "♥ ";
-		}
+		for (int i = 0; i < life; i++) addText += "♥ ";
 
 		lifeText.text = addText;
 	}
@@ -212,27 +213,13 @@ public class GameManager : MonoBehaviour
 		mushroomsQty += round * 3;
 	}
 
-	internal void CheckWin(float delayTime)
-	{
-		Invoke(nameof(CheckWin), delayTime);
-	}
-
-	private void CheckWin()
-	{
-		if (centipedeChain.Count == 0) WinRound();
-	}
-
 	private void StopCentipede()
 	{
-		foreach (Centipede centi in centipedeChain)
+		foreach (Centipede part in centipedeChain)
 		{
-			// turn off script
-			centi.enabled = false;
-			if (centi.isHead)
-			{
-				// set velocity to zero for all head parts
-				centi.rb.velocity = Vector2.zero;
-			}
+			part.enabled = false;
+			if (part.isHead)
+				part.rb.velocity = Vector2.zero;
 		}
 	}
 
@@ -246,8 +233,19 @@ public class GameManager : MonoBehaviour
 		PlayerPrefs.SetInt("Round", 1);
 		centerMessageText.gameObject.SetActive(true);
 	}
+	
+	internal void CheckWin(float delayTime)
+	{
+		Invoke(nameof(CheckWin), delayTime);
+	}
 
-	private void WinRound()
+	private void CheckWin()
+	{
+		if (centipedeChain.Count == 0) WinRound();
+	}
+
+
+	internal void WinRound()
 	{
 		centerMessageText.text = "You've won!\nGet ready for the next round";
 		centerMessageText.gameObject.SetActive(true);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Foe : MovingObject, IDestructible
 {
@@ -29,10 +26,8 @@ public abstract class Foe : MovingObject, IDestructible
 
 	protected virtual void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.gameObject.GetComponent<Player>())
-		{
+		if (other.gameObject.GetComponent<Player>()) 
 			GameManager.instance.LoseRound();
-		}
 	}
 
 	protected void OnBecameInvisible()

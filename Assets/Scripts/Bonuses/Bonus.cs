@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.WSA;
+﻿using UnityEngine;
 
 public abstract class Bonus : MovingObject
 {
 	protected void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.GetComponent<Player>())
-		{
-			ActivateInBonusManager();
-			Destroy(gameObject);
-		}
+		if (!other.GetComponent<Player>()) return;
+		
+		ActivateInBonusManager();
+		Destroy(gameObject);
 	}
 
 	protected abstract void ActivateInBonusManager();

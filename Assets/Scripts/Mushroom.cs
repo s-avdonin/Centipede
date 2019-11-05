@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-// convenient class to store any three sprites
 [System.Serializable]
 public class ThreeSprites
 {
@@ -13,16 +9,13 @@ public class ThreeSprites
 public class Mushroom : MonoBehaviour, IDestructible
 {
 	public int scoreValue;
-
-	// sprites of this object's damaged 
-	public ThreeSprites threeSprites;
+	public ThreeSprites damagedSprites;
 	private SpriteRenderer sr;
-	private int damage = 0;
+	private int damage;
 
 	private void Awake()
 	{
 		transform.SetParent(GameManager.instance.mushroomsParent.transform);
-		// set reference
 		sr = GetComponent<SpriteRenderer>();
 	}
 
@@ -32,13 +25,13 @@ public class Mushroom : MonoBehaviour, IDestructible
 		switch (damage)
 		{
 			case 1:
-				sr.sprite = threeSprites.sprite1;
+				sr.sprite = damagedSprites.sprite1;
 				break;
 			case 2:
-				sr.sprite = threeSprites.sprite2;
+				sr.sprite = damagedSprites.sprite2;
 				break;
 			case 3:
-				sr.sprite = threeSprites.sprite3;
+				sr.sprite = damagedSprites.sprite3;
 				break;
 			// max damage → object destroyed
 			case 4:

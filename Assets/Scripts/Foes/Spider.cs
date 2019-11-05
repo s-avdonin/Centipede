@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -39,10 +36,8 @@ public class Spider : Foe
 	protected override void OnCollisionEnter2D(Collision2D other)
 	{
 		base.OnCollisionEnter2D(other);
-		if (other.transform.GetComponent<Mushroom>() && Random.Range(0, 100) < chanceToEatMushroom)
-		{
+		if (other.transform.GetComponent<Mushroom>() && Random.Range(0, 100) < chanceToEatMushroom) 
 			Destroy(other.gameObject);
-		}
 	}
 
 	protected override void StartMovement()

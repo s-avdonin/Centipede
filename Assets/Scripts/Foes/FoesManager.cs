@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,10 +13,6 @@ public class FoesManager : MonoBehaviour
 
 	internal List<float> possibleHeightsForSpider;
 
-	private void Awake()
-	{
-	}
-
 	private void Start()
 	{
 		SetPossibleHeights();
@@ -30,8 +24,7 @@ public class FoesManager : MonoBehaviour
 		possibleHeightsForSpider = new List<float>();
 		for (float height = -GameManager.instance.sceneEdge;
 			height <= GameManager.instance.topBorderForPlayer;
-			height +=
-				GameManager.instance.rowHeight)
+			height += GameManager.instance.rowHeight)
 		{
 			possibleHeightsForSpider.Add(height);
 		}

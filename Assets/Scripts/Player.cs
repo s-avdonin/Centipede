@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -17,7 +16,7 @@ public class Player : MonoBehaviour
 	private float sceneEdge;
 	private float topBorder;
 
-	// time passed from game load when shot was fired last time 
+	// time passed after game load when shot was fired last time 
 	private float lastShotTime;
 
 	private void Awake()
@@ -34,19 +33,16 @@ public class Player : MonoBehaviour
 		topBorder = GameManager.instance.topBorderForPlayer;
 	}
 
-	// ship movement
+	// player movement
 	private void FixedUpdate()
 	{
 		// reading controls 
 		float moveHorizontal = Input.GetAxis("Horizontal");
 		float moveVertical = Input.GetAxis("Vertical");
 
-		// saving controls as Vector2 directions
 		Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-		// set velocity in movement direction with movement speed
 		rb.velocity = movement * speed;
-
-		// stop ship if out of borders
+		// stop player if out of borders
 		rb.position = new Vector2
 			(
 			Mathf.Clamp(rb.position.x, -sceneEdge, sceneEdge),
@@ -56,7 +52,8 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-		// reading is fire pressed once or hold on for certain time
+		// reading is fire pressed once or is hold
+		// ReSharper disable once InvertIf
 		if (((Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) && shot == null) &&
 			Time.time - lastShotTime > timeToRepeatShot)
 		{

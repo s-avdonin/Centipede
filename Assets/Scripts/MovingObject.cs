@@ -7,7 +7,7 @@ public class MovingObject : MonoBehaviour
 {
 	public float movementSpeed;
 
-	protected Rigidbody2D rb;
+	private Rigidbody2D rb;
 
 	protected virtual void Awake()
 	{

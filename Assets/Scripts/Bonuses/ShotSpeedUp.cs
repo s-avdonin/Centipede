@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ShotSpeedUp : Bonus
+﻿public class ShotSpeedUp : Bonus
 {
 	protected override void ActivateInBonusManager()
 	{

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Shot : MonoBehaviour
 {
 
 	// flag if object has already hit smth. 
-	private bool used = false;
+	private bool used;
 	private float speed;
 	private Rigidbody2D rb;
 	private float speedMultiplier;

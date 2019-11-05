@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Ant : Foe
@@ -26,7 +23,8 @@ public class Ant : Foe
 
 		if (position.y < heightOfCurrentRow && heightOfCurrentRow > bottomBorder)
 		{
-			if (Random.Range(0, 100) < foesManager.chanceForAntToCreateMushroom)
+			if (Random.Range(0, 100) < foesManager.chanceForAntToCreateMushroom && 
+				!GameManager.HasMushroom (new Vector2(position.x, heightOfCurrentRow)))
 			{
 				Instantiate(GameManager.instance.mushroomPrefab, new Vector3(position.x, heightOfCurrentRow),
 					Quaternion.identity);

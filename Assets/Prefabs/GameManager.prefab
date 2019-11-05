@@ -212,7 +212,7 @@ MonoBehaviour:
   centipedeSize: 5
   centipedeSpeed: 1.5
   mushroomsQty: 30
-  rowsAvailableForMushrooms:
+  rowsWithoutMushrooms:
     lowValue: 8
     highValue: 5
   playerPrefab: {fileID: 3811689063206438345, guid: 8c3113c2de2f6eb40a912eb34487badf,
