@@ -1,12 +1,27 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - Ant
+    - Background
+    - BonusManager
     - Centipede
+    - CentipedeSlowDown
     - FinishLine
+    - FoesManager
     - GameManager
     - Mushroom
-    - Ship
+    - Player
+    - PlayerSpeedUp
     - Shot
+    - ShotSpeedUp
+    - Spider
+    - TestButton
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
@@ -40,38 +55,64 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 68
       Script: {instanceID: 0}
+    - Class: 70
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9322}
-    - Class: 114
       Script: {instanceID: 9324}
     - Class: 114
-      Script: {instanceID: 9330}
+      Script: {instanceID: 9326}
     - Class: 114
-      Script: {instanceID: 9336}
+      Script: {instanceID: 9332}
     - Class: 114
-      Script: {instanceID: 9344}
+      Script: {instanceID: 9338}
     - Class: 114
-      Script: {instanceID: 9356}
+      Script: {instanceID: 9346}
     - Class: 114
-      Script: {instanceID: 9380}
+      Script: {instanceID: 9358}
     - Class: 114
       Script: {instanceID: 9382}
     - Class: 114
-      Script: {instanceID: 9812}
+      Script: {instanceID: 9384}
     - Class: 114
-      Script: {instanceID: 9980}
+      Script: {instanceID: 9736}
     - Class: 114
-      Script: {instanceID: 10342}
+      Script: {instanceID: 9740}
     - Class: 114
-      Script: {instanceID: 10528}
+      Script: {instanceID: 9816}
     - Class: 114
-      Script: {instanceID: 10546}
+      Script: {instanceID: 9870}
     - Class: 114
-      Script: {instanceID: 10594}
+      Script: {instanceID: 9978}
+    - Class: 114
+      Script: {instanceID: 9992}
+    - Class: 114
+      Script: {instanceID: 10174}
+    - Class: 114
+      Script: {instanceID: 10218}
+    - Class: 114
+      Script: {instanceID: 10274}
+    - Class: 114
+      Script: {instanceID: 10358}
+    - Class: 114
+      Script: {instanceID: 10544}
+    - Class: 114
+      Script: {instanceID: 10552}
+    - Class: 114
+      Script: {instanceID: 10560}
+    - Class: 114
+      Script: {instanceID: 10566}
+    - Class: 114
+      Script: {instanceID: 10616}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -119,6 +160,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: GroupTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 131f425607820796717868b02ff18299
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MovingObject
   - hash:
       serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
@@ -559,6 +606,18 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 11954a9fe02f43a93f61af03125fdf5b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BonusManager
+  - hash:
+      serializedVersion: 2
+      Hash: 5c41590edd17c4b24bd247b6545c0a3d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Background
+  - hash:
+      serializedVersion: 2
       Hash: b8a5e8091ab0b8861d2add371082c5e0
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -571,7 +630,7 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: 2d280562b40cf5fb6019b374ee1a7ec4
+      Hash: fb72b66433aa38019cf7956b3f6cadc9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -587,6 +646,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalTrack
+  - hash:
+      serializedVersion: 2
+      Hash: fb4870170391bc38e74220cff1c4cdda
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Ant
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -607,7 +672,13 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
+      Hash: fb4870170391bc38e74220cff1c4cdda
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Spider
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Shot
@@ -682,7 +753,13 @@ ScriptsOnlyBuild:
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: Destructible
+    className: TestButton
+  - hash:
+      serializedVersion: 2
+      Hash: 131f425607820796717868b02ff18299
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ShotSpeedUp
   - hash:
       serializedVersion: 2
       Hash: ee0cef6caaac8ae485bfa82f000f0f7b
@@ -703,10 +780,16 @@ ScriptsOnlyBuild:
     className: AudioTrack
   - hash:
       serializedVersion: 2
-      Hash: c192c927b9c81fda9dd083da398d454c
+      Hash: 131f425607820796717868b02ff18299
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: Ship
+    className: CentipedeSlowDown
+  - hash:
+      serializedVersion: 2
+      Hash: 215849c789e4ad90378c2a28a1a73633
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Player
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -733,13 +816,25 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: c055e61042f81b4a6c1d5b95caf2d093
+      Hash: d675c9354303f9631e9109d95630933c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Centipede
   - hash:
       serializedVersion: 2
-      Hash: 0cdda37b374c5cf2a3e54e8fd96df47b
+      Hash: 166ef2c500b005a490481e7ed52091d9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FoesManager
+  - hash:
+      serializedVersion: 2
+      Hash: 131f425607820796717868b02ff18299
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerSpeedUp
+  - hash:
+      serializedVersion: 2
+      Hash: 347169cf120abd9564843a5f513e55e3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Mushroom
@@ -757,7 +852,7 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: 5798b6c82e6de3a6e5ef4e052b030cdd
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: FinishLine
@@ -770,4 +865,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/MainScene.unity
-  playerPath: E:/Projects/2019/Unity/Centipede/Builds/Windows/v. 0.8/Centipede.exe
+  playerPath: E:/Projects/2019/Unity/Centipede/Builds/Windows/v. 1.0/Centipede.exe

@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 25
-  threeSprites:
+  damagedSprites:
     sprite1: {fileID: 21300000, guid: 97c5cd88bb9264c48bbc081ac9edd988, type: 3}
     sprite2: {fileID: 21300000, guid: 1e906cc98957326488faa35162a89fdc, type: 3}
     sprite3: {fileID: 21300000, guid: 46bfb2b7d296f3840a46c177228df374, type: 3}
